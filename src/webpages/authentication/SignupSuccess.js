@@ -6,13 +6,37 @@ const SignupSuccess = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    //WARNING - runs on change
-    useState(() => {
+    useEffect(() => {
         setEmail(window.localStorage.getItem("email"))
     }, [])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        // password validation
+        if(!email || !password){
+            toast.error("Email and Password are required");
+            return;
+        };
+        if(password.length < 6){
+            toast.error("Password must be at least 6 characters long");
+            return;
+        };
+
+        try {
+            const result = await auth.signInWithEmailLink(email, window.location.href);
+            //After submitting a password and confirming email
+            if(result.user.emailVerified){
+                window.localStorage.removeItem("email");
+                let currentUser = auth.currentUser;
+                await currentUser.updatePassword(password);
+                const token = await currentUser.getIdTokenResult();
+
+                props.history.push(`/`);
+            };
+        } catch (err) {
+            console.log(err);
+            toast.error(err.message);
+        }
     };
 
     const signupFormStep2 = () => {
