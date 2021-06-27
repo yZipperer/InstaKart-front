@@ -1,28 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {auth} from '../../firebase';
 import {toast} from 'react-toastify';
 
-const Signup = () => {
+const SignupSuccess = (props) => {
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const handleSubmit =  async (event) => {
+    //WARNING - runs on change
+    useState(() => {
+        setEmail(window.localStorage.getItem("email"))
+    }, [])
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const config = {
-            url: process.env.REACT_APP_CONFIRM_REGISTRATION_URL,
-            handleCodeInApp: true
-        };
-        await auth.sendSignInLinkToEmail(email, config);
-        toast.success(`Confirmation email has been sent to ${email}`, {
-            position: "top-center",
-            draggable: true
-        });
-
-        window.localStorage.setItem("email", email);
-        
-        setEmail("");
     };
 
-    const signupForm = () => {
+    const signupFormStep2 = () => {
         return(
             <form onSubmit={handleSubmit}>
                 <input 
@@ -30,13 +23,20 @@ const Signup = () => {
                     className="block border border-grey-light w-full p-3 rounded mb-4"
                     value={email}
                     placeholder="email address"
-                    onChange={event => setEmail(event.target.value)}
+                    disabled
+                />
+                <input 
+                    type="password"
+                    className="block border border-grey-light w-full p-3 rounded mb-4"
+                    value={password}
+                    placeholder="password"
+                    onChange={event => setPassword(event.target.value)}
                     autoFocus
                 />
                 <button
                     type="submit"
                     className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-green-dark focus:outline-none my-1"
-                >Send Confirmation</button>
+                >Create Account</button>
             </form>
         )
     };
@@ -47,7 +47,7 @@ const Signup = () => {
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                     <h1 className="mb-8 text-3xl text-center">Sign up</h1>
                     
-                    {signupForm()}
+                    {signupFormStep2()}
 
                     <div className="text-center text-sm text-grey-dark mt-4">
                         By signing up, you agree to the 
@@ -71,4 +71,4 @@ const Signup = () => {
     )
 };
 
-export default Signup;
+export default SignupSuccess;
