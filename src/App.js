@@ -1,12 +1,14 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Components
 import Home from './webpages/Home';
 import Signup from './webpages/authentication/Signup';
 import SignupSuccess from './webpages/authentication/SignupSuccess';
 import Login from './webpages/authentication/Login';
 import Nav from './components/menu/Nav';
-import {toast, ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
