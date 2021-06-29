@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Switch, Route} from 'react-router-dom';
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {auth} from './firebase';
+import {useDispatch} from 'react-redux';
 
 // Components
 import Home from './webpages/Home';
@@ -11,6 +13,26 @@ import Login from './webpages/authentication/Login';
 import Nav from './components/menu/Nav';
 
 const App = () => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    const remove = auth.onAuthStateChanged(async (user) => {
+      if(user) {
+        const tokenResult = await user.getIdTokenResult();
+        
+        console.log(user);
+        dispatch({
+          type: "LOGGED_IN",
+          payload: {
+            name: "name",
+            email: user.email,
+            token: tokenResult.token
+          }
+        });
+      };
+    });
+    return () => remove();
+  }, []);
   return (
     <>
       <Nav></Nav>
@@ -22,7 +44,7 @@ const App = () => {
         <Route exact path="/login" component={Login}></Route>
       </Switch>
     </>
-  )
+  );
 };
 
 export default App;
