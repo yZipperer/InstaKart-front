@@ -40,6 +40,12 @@ const Nav = () => {
                       <button className="p-1 h-8 w-8 rounded-full text-white hover:bg-blue-400 hidden hover:text-white sm:inline-block">
                         <i className="far fa-bell"></i>
                       </button>
+                        <Link to={'/signup'} className="flex text-sm">
+                          <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">Sign Up</span>
+                        </Link>
+                        <Link to={'/login'} className="flex text-sm">
+                          <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">Log In</span>
+                        </Link>
 
                       <div className="ml-3 relative">
                           <div className="dropdown">

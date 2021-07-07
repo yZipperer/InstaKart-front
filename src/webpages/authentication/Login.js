@@ -1,14 +1,41 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {auth} from '../../firebase';
+import {useDispatch} from 'react-redux';
 import {toast} from 'react-toastify';
 
-const Login = () => {
+const Login = ({history}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    let dispatch = useDispatch();
 
     const handleSubmit =  async (event) => {
         event.preventDefault();
+        setLoading(true);
+
+        try {
+            const result = await auth.signInWithEmailAndPassword(email, password);
+            const {user} = result;
+            const tokenResult = await user.getIdTokenResult();
+
+            dispatch({
+                type: "LOGGED_IN",
+                payload: {
+                  name: "name",
+                  email: user.email,
+                  token: tokenResult.token
+                }
+            });
+            setLoading(false);
+
+            history.push('/');
+        } catch (err) {
+            console.log(err);
+            toast.error(err.message);
+            setLoading(false);
+        }
     };
 
     const loginForm = () => {
@@ -42,7 +69,7 @@ const Login = () => {
         <div style={{height: "94.1vh"}} className="bg-gray-200 flex flex-col">
             <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center pb-24 justify-center px-2">
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                    <h1 className="mb-8 text-3xl text-center">Log In</h1>
+                    {loading ? <h1 className="mb-8 text-3xl text-center">Log In</h1> : <h1 className="mb-8 text-3xl text-center">Loading...</h1>}
                     
                     {loginForm()}
 

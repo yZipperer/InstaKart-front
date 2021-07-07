@@ -20,7 +20,6 @@ const App = () => {
       if(user) {
         const tokenResult = await user.getIdTokenResult();
         
-        console.log(user);
         dispatch({
           type: "LOGGED_IN",
           payload: {
