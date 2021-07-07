@@ -9,7 +9,6 @@ const Login = () => {
 
     const handleSubmit =  async (event) => {
         event.preventDefault();
-        
     };
 
     const loginForm = () => {
@@ -32,7 +31,8 @@ const Login = () => {
                 />
                 <button
                     type="submit"
-                    className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-green-dark focus:outline-none my-1"
+                    className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-blue-400 focus:outline-none my-1"
+                    disabled={!email || password.length < 6}
                 >Log In</button>
             </form>
         )
