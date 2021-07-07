@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import {auth} from '../../firebase';
 import {toast} from 'react-toastify';
 
@@ -51,20 +52,20 @@ const Signup = () => {
 
                     <div className="text-center text-sm text-grey-dark mt-4">
                         By signing up, you agree to the 
-                        <a className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400" href="#">
+                        <Link to={'/'} className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400">
                             Terms of Service
-                        </a> and 
-                        <a className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400" href="#">
+                        </Link> and 
+                        <Link to={'/'} className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400">
                             Privacy Policy
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
                 <div className="text-grey-dark mt-6">
                     Already have an account? 
-                    <a className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400" href="../login/">
+                    <Link to={'/login'} className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400">
                         Log in
-                    </a>.
+                    </Link>.
                 </div>
             </div>
         </div>
