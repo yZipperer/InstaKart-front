@@ -62,7 +62,7 @@ const Nav = () => {
                 </div>
                 {mobileMenuOpen ? (
                   <div class="sm:hidden bg-blue-400 w-full" id="mobileMenu">
-                    <div class="mt-2 mb-3  space-y-1">
+                    <div class="mt-2 pb-3  space-y-1">
                       <a href="#" class="text-white hover:bg-blue-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
                       <a href="#" class="text-white hover:bg-blue-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">New and Trending</a>
                       <a href="#" class="text-white hover:bg-blue-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Deals</a>

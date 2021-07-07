@@ -42,8 +42,8 @@ const Signup = () => {
     };
 
     return (
-        <div className="bg-gray-200 min-h-screen flex flex-col">
-            <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+        <div style={{height: "94.1vh"}} className="bg-gray-200 flex flex-col">
+            <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center pb-24 justify-center px-2">
                 <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                     <h1 className="mb-8 text-3xl text-center">Sign up</h1>
                     
