@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {auth} from '../../firebase';
+import {useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 
-const Signup = () => {
+const Signup = ({history}) => {
     const [email, setEmail] = useState("");
+
+    let rState = useSelector((rState) => {
+        return rState;
+    });
+
+    //on rState.user changes
+    useEffect(() => {
+        if(rState.user && rState.user.token){
+            history.push('/');
+        }
+    }, [rState.user]);
 
     const handleSubmit =  async (event) => {
         event.preventDefault();

@@ -1,11 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import {auth} from '../../firebase';
+import {useSelector} from 'react-redux';
 import {toast} from 'react-toastify';
 
-const SignupSuccess = (props) => {
+const SignupSuccess = ({history}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
+
+    let rState = useSelector((rState) => {
+        return rState;
+    });
+
+    //on rState.user changes
+    useEffect(() => {
+        if(rState.user && rState.user.token){
+            history.push('/');
+        }
+    }, [rState.user]);
 
     useEffect(() => {
         setEmail(window.localStorage.getItem("email"))
@@ -33,7 +45,7 @@ const SignupSuccess = (props) => {
                 await currentUser.updateProfile({displayName: name});
                 const token = await currentUser.getIdTokenResult();
 
-                props.history.push(`/`);
+                history.push(`/`);
             };
         } catch (err) {
             console.log(err);
