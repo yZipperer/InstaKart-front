@@ -94,6 +94,16 @@ const Login = ({history}) => {
                     className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-blue-400 focus:outline-none my-1"
                     disabled={!email || password.length < 6}
                 >Log In</button>
+                <button
+                    onClick={loginWithGoogle}
+                    type="submit"
+                    className="w-full text-center py-3 rounded bg-red-500 text-white hover:bg-red-400 focus:outline-none my-1"
+                >Log In with Google</button>
+                <div className="text-grey-dark mt-1 text-center">
+                    <Link to={'/forgot/password'} className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400">
+                        Forgot Password?
+                    </Link>.
+                </div>
             </form>
         )
     };
@@ -105,12 +115,6 @@ const Login = ({history}) => {
                     {loading ? <h1 className="mb-8 text-3xl text-center">Loading...</h1> : <h1 className="mb-8 text-3xl text-center">Log In</h1>}
                     
                     {loginForm()}
-
-                    <button
-                        onClick={loginWithGoogle}
-                        type="submit"
-                        className="w-full text-center py-3 rounded bg-red-500 text-white hover:bg-red-400 focus:outline-none my-1"
-                    >Log In with Google</button>
 
                 </div>
 

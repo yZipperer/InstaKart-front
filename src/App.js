@@ -10,6 +10,7 @@ import Home from './webpages/Home';
 import Signup from './webpages/authentication/Signup';
 import SignupSuccess from './webpages/authentication/SignupSuccess';
 import Login from './webpages/authentication/Login';
+import ForgotPassword from './webpages/authentication/ForgotPassword';
 import Nav from './components/menu/Nav';
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
         <Route exact path="/signup" component={Signup}></Route>
         <Route exact path="/signup/success" component={SignupSuccess}></Route>
         <Route exact path="/login" component={Login}></Route>
+        <Route exact path="/forgot/password" component={ForgotPassword}></Route>
       </Switch>
     </>
   );
