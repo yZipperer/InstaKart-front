@@ -5,6 +5,7 @@ import {toast} from 'react-toastify';
 const SignupSuccess = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
 
     useEffect(() => {
         setEmail(window.localStorage.getItem("email"))
@@ -14,7 +15,7 @@ const SignupSuccess = (props) => {
         event.preventDefault();
         // password validation
         if(!email || !password){
-            toast.error("Email and Password are required");
+            toast.error("Email, Password, and Name are required");
             return;
         };
         if(password.length < 6){

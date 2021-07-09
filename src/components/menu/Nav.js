@@ -1,12 +1,16 @@
 import React, {useState} from "react";
 import {Link, useHistory} from 'react-router-dom';
 import firebase from 'firebase';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { Zoom } from "react-toastify";
 
 const Nav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   let dispatch = useDispatch();
+  let rState = useSelector((rState) => {
+    return rState;
+  });
   let history = useHistory();
 
   const logout = () => {
@@ -22,7 +26,7 @@ const Nav = () => {
 
     return (
       <>
-          <nav className="bg-blue-500 mx-auto px-2 sm:px-6 lg:px-8">
+          <nav className="bg-indigo-700 mx-auto px-2 sm:px-6 lg:px-8">
                 <div className="relative flex items-center justify-between h-16">
                   <div className="absolute flex items-center sm:hidden">
                     <button type="button" id="mobileMenuButton" className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-blue-400" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -37,21 +41,29 @@ const Nav = () => {
                   </div>
 
                   <div className="absolute right-0 flex items-center pr-2 sm:ml-6 sm:pr-0">
-                      <button className="p-1 h-8 w-8 rounded-full text-white hover:bg-blue-400 hidden hover:text-white sm:inline-block">
-                        <i className="far fa-bell"></i>
-                      </button>
-                        <Link to={'/signup'} className="flex text-sm">
-                          <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">Sign Up</span>
-                        </Link>
-                        <Link to={'/login'} className="flex text-sm">
-                          <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">Log In</span>
-                        </Link>
-
+                      {rState.user && (
+                        <button className="p-1 h-8 w-8 rounded-full text-white hover:bg-blue-400 hidden hover:text-white sm:inline-block">
+                          <i className="far fa-bell"></i>
+                        </button>
+                      )}
+                      {!rState.user && (
+                        <>
+                          <Link to={'/login'} className="flex text-sm">
+                            <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">Log In</span>
+                          </Link>
+                          <Link to={'/signup'} className="flex text-sm">
+                            <span className="text-white flex items-center bg-blue-600 justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">Sign Up</span>
+                          </Link>
+                        </>
+                      )}
+                      
                       <div className="ml-3 relative">
                           <div className="dropdown">
-                            <div className="flex text-sm">
-                              <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">Admin</span>
-                            </div>
+                            {rState.user && (
+                              <div className="flex text-sm">
+                                <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">{rState.user.name}</span>
+                              </div>
+                            )}
 
                             <ul className="dropdown-menu absolute hidden text-gray-300 pt-1">
                               <li className="">
