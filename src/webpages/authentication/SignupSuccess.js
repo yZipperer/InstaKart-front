@@ -14,7 +14,7 @@ const SignupSuccess = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         // password validation
-        if(!email || !password){
+        if(!email || !password || !name){
             toast.error("Email, Password, and Name are required");
             return;
         };
@@ -30,6 +30,7 @@ const SignupSuccess = (props) => {
                 window.localStorage.removeItem("email");
                 let currentUser = auth.currentUser;
                 await currentUser.updatePassword(password);
+                await currentUser.updateProfile({displayName: name});
                 const token = await currentUser.getIdTokenResult();
 
                 props.history.push(`/`);
@@ -49,6 +50,14 @@ const SignupSuccess = (props) => {
                     value={email}
                     placeholder="email address"
                     disabled
+                />
+                <input 
+                    type="name"
+                    className="block border border-grey-light w-full p-3 rounded mb-4"
+                    value={name}
+                    placeholder="name"
+                    onChange={event => setName(event.target.value)}
+                    autoFocus
                 />
                 <input 
                     type="password"

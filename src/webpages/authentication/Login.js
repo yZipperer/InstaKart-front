@@ -23,7 +23,7 @@ const Login = ({history}) => {
             dispatch({
                 type: "LOGGED_IN",
                 payload: {
-                  name: "name",
+                  name: user.displayName,
                   email: user.email,
                   token: tokenResult.token
                 }
@@ -52,7 +52,7 @@ const Login = ({history}) => {
             dispatch({
                 type: "LOGGED_IN",
                 payload: {
-                  name: "name",
+                  name: user.displayName,
                   email: user.email,
                   token: tokenResult.token
                 }

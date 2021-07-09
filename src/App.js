@@ -23,7 +23,7 @@ const App = () => {
         dispatch({
           type: "LOGGED_IN",
           payload: {
-            name: "name",
+            name: user.displayName,
             email: user.email,
             token: tokenResult.token
           }
