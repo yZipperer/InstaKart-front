@@ -5,12 +5,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import {toast} from 'react-toastify';
 
-const cUser = async (authenticationToken) => {
+const cUser = async (authenticationtoken) => {
     return await axios.post(`${process.env.REACT_APP_API_URL}/cUser`, 
         {}, 
         {
         headers: {
-            authenticationToken: authenticationToken
+            authenticationtoken: authenticationtoken
         }
     });
 };
