@@ -2,7 +2,18 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {auth, googleAuthProvider} from '../../firebase';
 import {useDispatch, useSelector} from 'react-redux';
+import axios from 'axios';
 import {toast} from 'react-toastify';
+
+const cUser = async (authenticationToken) => {
+    return await axios.post(`${process.env.REACT_APP_API_URL}/cUser`, 
+        {}, 
+        {
+        headers: {
+            authenticationToken: authenticationToken
+        }
+    });
+};
 
 const Login = ({history}) => {
     const [email, setEmail] = useState("");
@@ -30,6 +41,12 @@ const Login = ({history}) => {
             const result = await auth.signInWithEmailAndPassword(email, password);
             const {user} = result;
             const tokenResult = await user.getIdTokenResult();
+
+            cUser(tokenResult.token)
+            .then(
+                res => console.log('create user res', res)
+            )
+            .catch();
 
             dispatch({
                 type: "LOGGED_IN",
