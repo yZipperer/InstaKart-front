@@ -43,19 +43,20 @@ const Login = ({history}) => {
             const tokenResult = await user.getIdTokenResult();
 
             cUser(tokenResult.token)
-            .then(
-                res => console.log('create user res', res)
-            )
-            .catch();
+                .then((res) => {
+                    dispatch({
+                        type: "LOGGED_IN",
+                        payload: {
+                            _id: res.data._id,
+                            name: res.data.name,
+                            email: res.data.email,
+                            token: tokenResult.token,
+                            role: res.data.role
+                        }
+                    });
+                })
+                .catch();
 
-            dispatch({
-                type: "LOGGED_IN",
-                payload: {
-                  name: user.displayName,
-                  email: user.email,
-                  token: tokenResult.token
-                }
-            });
             setLoading(false);
 
             toast.success("Log In was successful", {
@@ -77,14 +78,20 @@ const Login = ({history}) => {
             const {user} = result;
             const tokenResult = await user.getIdTokenResult();
 
-            dispatch({
-                type: "LOGGED_IN",
-                payload: {
-                  name: user.displayName,
-                  email: user.email,
-                  token: tokenResult.token
-                }
-            });
+            cUser(tokenResult.token)
+                .then((res) => {
+                    dispatch({
+                        type: "LOGGED_IN",
+                        payload: {
+                            _id: res.data._id,
+                            name: res.data.name,
+                            email: res.data.email,
+                            token: tokenResult.token,
+                            role: res.data.role
+                        }
+                    });
+                })
+                .catch();
 
             toast.success("Log In was successful", {
                 position: "top-center",

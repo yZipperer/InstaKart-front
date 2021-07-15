@@ -1,12 +1,25 @@
 import React, {useState, useEffect} from 'react';
 import {auth} from '../../firebase';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import axios from 'axios';
 import {toast} from 'react-toastify';
+
+const cUser = async (authenticationtoken) => {
+    return await axios.post(`${process.env.REACT_APP_API_URL}/cUser`, 
+        {}, 
+        {
+        headers: {
+            authenticationtoken: authenticationtoken
+        }
+    });
+};
 
 const SignupSuccess = ({history}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
+
+    let dispatch = useDispatch();
 
     let rState = useSelector((rState) => {
         return rState;
@@ -43,7 +56,22 @@ const SignupSuccess = ({history}) => {
                 let currentUser = auth.currentUser;
                 await currentUser.updatePassword(password);
                 await currentUser.updateProfile({displayName: name});
-                const token = await currentUser.getIdTokenResult();
+                const tokenResult = await currentUser.getIdTokenResult();
+                
+                cUser(tokenResult.token)
+                    .then((res) => {
+                        dispatch({
+                            type: "LOGGED_IN",
+                            payload: {
+                                _id: res.data._id,
+                                name: name,
+                                email: res.data.email,
+                                token: tokenResult.token,
+                                role: res.data.role
+                            }
+                        });
+                    })
+                    .catch();
 
                 history.push(`/`);
             };
@@ -77,7 +105,6 @@ const SignupSuccess = ({history}) => {
                     value={password}
                     placeholder="password"
                     onChange={event => setPassword(event.target.value)}
-                    autoFocus
                 />
                 <button
                     type="submit"
