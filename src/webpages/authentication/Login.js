@@ -2,18 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {auth, googleAuthProvider} from '../../firebase';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+import {cUser} from '../../apiFunctions/authentication';
 import {toast} from 'react-toastify';
-
-const cUser = async (authenticationtoken) => {
-    return await axios.post(`${process.env.REACT_APP_API_URL}/cUser`, 
-        {}, 
-        {
-        headers: {
-            authenticationtoken: authenticationtoken
-        }
-    });
-};
 
 const Login = ({history}) => {
     const [email, setEmail] = useState("");

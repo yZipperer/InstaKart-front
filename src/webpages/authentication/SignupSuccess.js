@@ -1,18 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {auth} from '../../firebase';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+import {cUser} from '../../apiFunctions/authentication';
 import {toast} from 'react-toastify';
-
-const cUser = async (authenticationtoken) => {
-    return await axios.post(`${process.env.REACT_APP_API_URL}/cUser`, 
-        {}, 
-        {
-        headers: {
-            authenticationtoken: authenticationtoken
-        }
-    });
-};
 
 const SignupSuccess = ({history}) => {
     const [email, setEmail] = useState("");
