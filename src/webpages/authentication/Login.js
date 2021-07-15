@@ -45,7 +45,7 @@ const Login = ({history}) => {
                         }
                     });
                 })
-                .catch();
+                .catch((err) => console.log(err));
 
             setLoading(false);
 
@@ -81,7 +81,7 @@ const Login = ({history}) => {
                         }
                     });
                 })
-                .catch();
+                .catch((err) => console.log(err));
 
             toast.success("Log In was successful", {
                 position: "top-center",

@@ -3,6 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {auth} from './firebase';
+import {currentUser} from './apiFunctions/authentication';
 import {useDispatch} from 'react-redux';
 
 // Components
@@ -21,14 +22,20 @@ const App = () => {
       if(user) {
         const tokenResult = await user.getIdTokenResult();
         
-        dispatch({
-          type: "LOGGED_IN",
-          payload: {
-            name: user.displayName,
-            email: user.email,
-            token: tokenResult.token
-          }
-        });
+        currentUser(tokenResult.token)
+          .then((res) => {
+              dispatch({
+                  type: "LOGGED_IN",
+                  payload: {
+                      _id: res.data._id,
+                      name: res.data.name,
+                      email: res.data.email,
+                      token: tokenResult.token,
+                      role: res.data.role
+                  }
+              });
+          })
+          .catch((err) => console.log(err));
       };
     });
     return () => remove();
