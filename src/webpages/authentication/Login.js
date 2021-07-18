@@ -23,6 +23,14 @@ const Login = ({history}) => {
         }
     }, [rState.user]);
 
+    const roleRedirect = (res) => {
+        if(res.data.role === 'admin'){
+            history.push('/admin/dashboard');
+        } else {
+            history.push('/');
+        }
+    };
+
     const handleSubmit =  async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -44,6 +52,7 @@ const Login = ({history}) => {
                             role: res.data.role
                         }
                     });
+                    roleRedirect(res);
                 })
                 .catch((err) => console.log(err));
 
@@ -53,8 +62,6 @@ const Login = ({history}) => {
                 position: "top-center",
                 draggable: true
             });
-
-            history.push('/');
         } catch (err) {
             console.log(err);
             toast.error(err.message);
@@ -80,6 +87,7 @@ const Login = ({history}) => {
                             role: res.data.role
                         }
                     });
+                    roleRedirect(res);
                 })
                 .catch((err) => console.log(err));
 
@@ -87,8 +95,6 @@ const Login = ({history}) => {
                 position: "top-center",
                 draggable: true
             });
-
-            history.push('/');
         })
         .catch(err => {
             console.log(err);
