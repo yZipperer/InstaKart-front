@@ -13,6 +13,7 @@ import SignupSuccess from './webpages/authentication/SignupSuccess';
 import Login from './webpages/authentication/Login';
 import ForgotPassword from './webpages/authentication/ForgotPassword';
 import Nav from './components/menu/Nav';
+import History from './webpages/user/History';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ const App = () => {
         <Route exact path="/signup/success" component={SignupSuccess}></Route>
         <Route exact path="/login" component={Login}></Route>
         <Route exact path="/forgot/password" component={ForgotPassword}></Route>
+        <Route exact path="/user/history" component={History}></Route>
       </Switch>
     </>
   );
