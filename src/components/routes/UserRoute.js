@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import Loading from './Loading';
 
 const UserRoute = ({inh, ...rest}) => {
     const {user} = useSelector((rState) => ({...rState}));
@@ -8,7 +9,7 @@ const UserRoute = ({inh, ...rest}) => {
     return user && user.token ? (
         <Route {...rest} render={() => inh}></Route>
     ) : (
-        <p className="text-center mt-24">Loading page...</p>
+        <Loading />
     )
 };
 
