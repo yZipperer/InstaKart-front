@@ -15,7 +15,7 @@ const Loading = ({inh, ...rest}) => {
     }, [time]);
 
     return (
-        <div style={{height: "94.1vh"}} className="bg-gray-200">
+        <div style={{height: "94.1vh"}} className="bg-gray-300">
             <div className="text-center pt-24">
                 <p className="text-2xl text-red-700">Access Denied {time}...</p>
             </div>
