@@ -15,7 +15,7 @@ import ForgotPassword from './webpages/authentication/ForgotPassword';
 import Nav from './components/menu/Nav';
 import History from './webpages/user/History';
 import UserRoute from './components/routes/UserRoute';
-import Password from './webpages/user/Password';
+import Settings from './webpages/user/Settings';
 import WishList from './webpages/user/WishList';
 
 const App = () => {
@@ -56,7 +56,7 @@ const App = () => {
         <Route exact path="/login" component={Login}></Route>
         <Route exact path="/forgot/password" component={ForgotPassword}></Route>
         <UserRoute exact path="/user/history" component={History}></UserRoute>
-        <UserRoute exact path="/reset/password" component = {Password}></UserRoute>
+        <UserRoute exact path="/user/settings" component = {Settings}></UserRoute>
         <UserRoute exact path="/user/wishlist" component={WishList}></UserRoute>
       </Switch>
     </>
