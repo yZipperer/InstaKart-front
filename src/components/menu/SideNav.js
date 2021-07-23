@@ -12,7 +12,7 @@ const SideNav = () => {
                         </Link>
                     </li>
                     <li className="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6">
-                        <Link to="/forgot/password" className="flex items-center">
+                        <Link to="/reset/password" className="flex items-center">
                             <span className="text-sm ml-2">Password</span>
                         </Link>
                     </li>

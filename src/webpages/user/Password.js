@@ -2,9 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 
 const Password = ({history}) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    
     const loginForm = () => {
         return(
-            <form onSubmit={handleSubmit}>
+            <form>
                 <input 
                     type="email"
                     className="block border border-grey-light w-full p-3 rounded mb-4"
@@ -24,7 +28,7 @@ const Password = ({history}) => {
                     type="submit"
                     className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-blue-400 focus:outline-none my-1"
                     disabled={!email || password.length < 6}
-                >Send Reset Link</button>
+                >Reset Password</button>
             </form>
         )
     };
@@ -37,13 +41,6 @@ const Password = ({history}) => {
                     
                     {loginForm()}
 
-                </div>
-
-                <div className="text-grey-dark mt-6">
-                    Don't have an account? 
-                    <Link to={'/signup'} className="no-underline border-b border-blue-700 text-blue-700 pl-1 hover:border-blue-400 hover:text-blue-400">
-                        Sign Up
-                    </Link>.
                 </div>
             </div>
         </div>
