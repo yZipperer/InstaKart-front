@@ -19,3 +19,13 @@ export const currentUser = async (authenticationtoken) => {
         }
     });
 };
+
+export const currentAdmin = async (authenticationtoken) => {
+    return await axios.post(`${process.env.REACT_APP_API_URL}/currentAdmin`, 
+        {}, 
+        {
+        headers: {
+            authenticationtoken: authenticationtoken
+        }
+    });
+};
