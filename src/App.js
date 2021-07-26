@@ -15,8 +15,10 @@ import ForgotPassword from './webpages/authentication/ForgotPassword';
 import Nav from './components/menu/Nav';
 import History from './webpages/user/History';
 import UserRoute from './components/routes/UserRoute';
+import AdminRoute from './components/routes/AdminRoute';
 import Settings from './webpages/user/Settings';
 import WishList from './webpages/user/WishList';
+import AdminDashboard from './webpages/admin/Dashboard';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -58,6 +60,7 @@ const App = () => {
         <UserRoute exact path="/user/history" component={History}></UserRoute>
         <UserRoute exact path="/user/settings" component = {Settings}></UserRoute>
         <UserRoute exact path="/user/wishlist" component={WishList}></UserRoute>
+        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard}></AdminRoute>
       </Switch>
     </>
   );
