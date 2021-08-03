@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import Loading from './Loading';
-import currentAdmin from '../../apiFunctions/authentication';
+import {currentAdmin} from '../../apiFunctions/authentication';
 
 const AdminRoute = ({inh, ...rest}) => {
     const {user} = useSelector((rState) => ({...rState}));
-    const {proc, setProc} = useState(false);
+    const [proc, setProc] = useState(false);
 
     useEffect(() => {
         if(user && user.token){
@@ -23,7 +23,7 @@ const AdminRoute = ({inh, ...rest}) => {
     }, [user]);
 
     return proc ? (
-        <Route {...rest} render={() => inh}></Route>
+        <Route {...rest}></Route>
     ) : (
         <Loading />
     )

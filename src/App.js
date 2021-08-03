@@ -58,7 +58,7 @@ const App = () => {
         <Route exact path="/login" component={Login}></Route>
         <Route exact path="/forgot/password" component={ForgotPassword}></Route>
         <UserRoute exact path="/user/history" component={History}></UserRoute>
-        <UserRoute exact path="/user/settings" component = {Settings}></UserRoute>
+        <UserRoute exact path="/user/settings" component ={Settings}></UserRoute>
         <UserRoute exact path="/user/wishlist" component={WishList}></UserRoute>
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard}></AdminRoute>
       </Switch>

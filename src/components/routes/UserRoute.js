@@ -7,7 +7,7 @@ const UserRoute = ({inh, ...rest}) => {
     const {user} = useSelector((rState) => ({...rState}));
 
     return user && user.token ? (
-        <Route {...rest} render={() => inh}></Route>
+        <Route {...rest}></Route>
     ) : (
         <Loading />
     )
