@@ -52,7 +52,7 @@ const AdminSideNav = () => {
                     </li>
                     <li className={IsActive("/user/settings")}>
                         <Link to="/user/settings" className="flex items-center">
-                            <span className="text-sm ml-2">Settings>Password</span>
+                            <span className="text-sm ml-2">Settings-Password</span>
                         </Link>
                         <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
                     </li>
