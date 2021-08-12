@@ -1,5 +1,5 @@
 import React from 'react';
-import SideNav from '../../components/menu/SideNav';
+import SideNav from '../../components/menu/UserSideNav';
 import Password from './Password';
 
 const History = () => {

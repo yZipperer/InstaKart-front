@@ -1,5 +1,5 @@
 import React from 'react';
-import SideNav from '../../components/menu/SideNav';
+import SideNav from '../../components/menu/UserSideNav';
 
 //will contain things like previous orders, things to be reviewed, previously looked at products, etc.
 const History = () => {
