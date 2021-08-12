@@ -1,13 +1,13 @@
 import React from 'react';
 import SideNav from '../../components/menu/SideNav';
 
-const WishList = () => {
+const OpenOrders = () => {
   return (
       <div style={{height: "94.1vh"}} class="bg-gray-300 h-screen">
         <SideNav />
-          <p>Wish List</p>
+          <p>Open Orders</p>
       </div>
   );
 };
 
-export default WishList;
+export default OpenOrders;
