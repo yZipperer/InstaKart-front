@@ -2,15 +2,26 @@ import React, {useState, useEffect} from 'react';
 import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
-import {createCategory, getCategory, removeCategory} from '../../../apiFunctions/category';
+import {Link} from 'react-router-dom';
+import {createCategory, listCategories, removeCategory} from '../../../apiFunctions/category';
 
 const CreateCategory = () => {
     const [categoryName, setCategoryName] = useState("");
     const [loading, setLoading] = useState(false);
+    const [categories, setCategories] = useState([]);
 
     let rState = useSelector((rState) => {
         return rState;
     });
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+    
+    const getCategories = () => {
+        listCategories()
+        .then(category => setCategories(category.data));
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -27,6 +38,39 @@ const CreateCategory = () => {
             setLoading(false);
             if(err.response.status === 400) toast.error(err.response.data);
         })
+    };
+
+    const handleDelete = (slug) => {
+        if(window.confirm(`Would you like to delete "${slug}"?`)) {
+            setLoading(true);
+            removeCategory(slug, rState.user.token)
+            .then(res => {
+                setLoading(false);
+                toast.success(`${res.data.name} has been deleted`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+            .catch(err => {
+                setLoading(false);
+                toast.error(`Failed to delete "${slug}, ${err.response.data}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+        } else {
+
+        }
     };
 
     const categoryForm = () => (
@@ -83,27 +127,21 @@ const CreateCategory = () => {
 
                 <div className="w-full mx-auto flex-1 flex items-center justify-center px-2">
                     <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full flex gap-4">
-                        <div className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
-                            <p className="text-md font-semibold">Category</p>
-                        </div>
-                        <div className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
-                            <p className="text-md font-semibold">Category</p>
-                        </div>
-                        <div className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
-                            <p className="text-md font-semibold">Category</p>
-                        </div>
-                        <div className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
-                            <p className="text-md font-semibold">Category</p>
-                        </div>
-                        <div className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
-                            <p className="text-md font-semibold">Category</p>
-                        </div>
-                        <div className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
-                            <p className="text-md font-semibold">Category</p>
-                        </div>
-                        <div className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
-                            <p className="text-md font-semibold">Category</p>
-                        </div>
+                        {categories.map((category) => (
+                            <div key={category._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
+                                <p className="text-md font-semibold">
+                                    {category.name}
+                                    <span className="space-x-2 pl-2">
+                                        <Link to={`/admin/category/${category.slug}`}>
+                                            <i class="far fa-edit text-blue-700 hover:blue-900"></i>
+                                        </Link>
+                                        <button onClick={() => handleDelete(category.slug)} className="cursor-pointer">
+                                            <i class="far fa-trash-alt text-red-600 hover:red-800"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                        ))}
                     </div>
 
                 </div>
