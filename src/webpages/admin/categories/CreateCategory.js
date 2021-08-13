@@ -31,7 +31,8 @@ const CreateCategory = () => {
         .then(res => {
             setLoading(false);
             setCategoryName("");
-            toast.success(`Category "${res.data.name}" has been created`)
+            toast.success(`Category "${res.data.name}" has been created`);
+            getCategories();
         })
         .catch(err => {
             console.log(err);
@@ -55,6 +56,7 @@ const CreateCategory = () => {
                     draggable: true,
                     progress: undefined,
                 });
+                getCategories();
             })
             .catch(err => {
                 setLoading(false);
