@@ -22,6 +22,7 @@ import OpenOrders from './webpages/user/OpenOrders';
 import AdminDashboard from './webpages/admin/Dashboard';
 import CreateCategory from './webpages/admin/categories/CreateCategory';
 import UpdateCategory from './webpages/admin/categories/UpdateCategory';
+import CreateSubCategory from './webpages/admin/subCategories/CreateSubCategory';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const App = () => {
         <AdminRoute exact path="/admin/dashboard" component={AdminDashboard}></AdminRoute>
         <AdminRoute exact path="/admin/categories" component={CreateCategory}></AdminRoute>
         <AdminRoute exact path="/admin/category/:slug" component={UpdateCategory}></AdminRoute>
+        <AdminRoute exact path="/admin/subcategories" component={CreateSubCategory}></AdminRoute>
       </Switch>
     </>
   );

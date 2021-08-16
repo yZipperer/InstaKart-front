@@ -36,13 +36,11 @@ const AdminSideNav = () => {
                         <Link to="/admin/categories" className="flex items-center">
                             <span className="text-sm ml-2">Categories</span>
                         </Link>
-                        <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
                     </li>
                     <li className={IsActive("/admin/subcategories")}>
                         <Link to="/admin/subcategories" className="flex items-center">
                             <span className="text-sm ml-2">Sub Categories</span>
                         </Link>
-                        <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
                     </li>
                     <li className={IsActive("/admin/coupons")}>
                         <Link to="/admin/coupons" className="flex items-center">
