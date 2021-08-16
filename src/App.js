@@ -20,8 +20,8 @@ import Settings from './webpages/user/Settings';
 import WishList from './webpages/user/WishList';
 import OpenOrders from './webpages/user/OpenOrders';
 import AdminDashboard from './webpages/admin/Dashboard';
-import CreateCategory from './webpages/admin/categories/CreateCategory';\
-import UpdateCategory from './webpages/admin/categories/updateCategory';
+import CreateCategory from './webpages/admin/categories/CreateCategory';
+import UpdateCategory from './webpages/admin/categories/UpdateCategory';
 
 const App = () => {
   const dispatch = useDispatch();

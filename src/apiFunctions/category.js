@@ -4,7 +4,7 @@ export const listCategories = async () => {
     return await axios.get(`${process.env.REACT_APP_API_URL}/categories`);
 };
 
-export const readCategory = async (slug) => {
+export const individualCategory = async (slug) => {
     return await axios.get(`${process.env.REACT_APP_API_URL}/category/${slug}`);
 };
 
@@ -16,7 +16,8 @@ export const removeCategory = async (slug, authenticationtoken) => {
     });
 };
 
-export const updateCategory = async (slug, authenticationtoken, category) => {
+export const updateCategory = async (category, authenticationtoken, slug) => {
+    console.log(category, slug, authenticationtoken);
     return await axios.put(`${process.env.REACT_APP_API_URL}/category/${slug}`, category, {
         headers: {
             authenticationtoken: authenticationtoken
