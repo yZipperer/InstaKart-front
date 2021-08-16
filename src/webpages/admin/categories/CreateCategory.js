@@ -9,6 +9,7 @@ const CreateCategory = () => {
     const [categoryName, setCategoryName] = useState("");
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [searchKey, setSearchKey] = useState("");
 
     let rState = useSelector((rState) => {
         return rState;
@@ -75,6 +76,13 @@ const CreateCategory = () => {
         }
     };
 
+    const handleSearch = (event) => {
+        event.preventDefault();
+        setSearchKey(event.target.value.toLowerCase());
+    };
+
+    const search = (searchKey) => (category) => category.name.toLowerCase().includes(searchKey);
+
     const categoryForm = () => (
         <form onSubmit={handleSubmit}>
             <input 
@@ -93,6 +101,24 @@ const CreateCategory = () => {
         </form>
     );
 
+    const categorySearchForm = () => (
+        <form onSubmit={handleSearch}>
+            <input 
+                type="text"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                placeholder="search"
+                onChange={handleSearch}
+                value={searchKey}
+                autoFocus
+                required
+            />
+            <button
+                type="submit"
+                className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-blue-400 focus:outline-none my-1"
+            >Search</button>
+        </form>
+    );
+
     const loadingCategoryForm = () => (
         <form onSubmit={handleSubmit}>
             <input 
@@ -100,7 +126,7 @@ const CreateCategory = () => {
                 className="block border border-blue-400 w-full p-3 rounded mb-4  animate-pulse"
                 placeholder="new category"
                 onChange={event => setCategoryName(event.target.value)}
-                value={"loading..."}
+                value={"loading ..."}
                 autoFocus
                 disabled
                 required
@@ -113,23 +139,67 @@ const CreateCategory = () => {
         </form>
     );
 
+    const loadingCategorySearchForm = () => (
+        <form onSubmit={handleSearch}>
+            <input 
+                type="text"
+                className="block border border-blue-400 w-full p-3 rounded mb-4  animate-pulse"
+                placeholder="search"
+                onChange={handleSearch}
+                value={"Searching ..."}
+                autoFocus
+                disabled
+                required
+            />
+            <button
+                type="submit"
+                className="w-full text-center py-3 rounded text-white focus:outline-none my-1 bg-blue-400 animate-pulse"
+                disabled
+            >Searching ...</button>
+        </form>
+    );
+    
     return (
         <div style={{height: "94.1vh"}} className="bg-gray-300 flex">
             <AdminSideNav></AdminSideNav>
             <div style={{height: "94.1vh"}} className="bg-gray-300 w-full">
-                <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4">
-                    <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                        {loading ? (
-                            loadingCategoryForm()
-                        ) : (
-                            categoryForm()
-                        )}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
+                    <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 w-full">
+                        <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                            {loading ? (
+                                loadingCategorySearchForm()
+                            ) : (
+                                categorySearchForm()
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 w-full">
+                        <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                            {loading ? (
+                                loadingCategoryForm()
+                            ) : (
+                                categoryForm()
+                            )}
+                        </div>
+                    </div>
+
+                    <div class="container mx-auto px-2 mt-4 mb-4 w-full hidden sm:inline-block">
+                        <div class="relative flex items-center px-5 md:px-4 py-2 overflow-hidden rounded-md shadow-lg bg-white h-full">
+                            <span class="absolute top-0 left-0 w-4 h-full bg-blue-500"></span>
+                            <div class="px-4 py-4 ml-4 rounded-full bg-purple-500">
+                                <i class="fas fa-file text-white w-5 h-5 text-center"></i>
+                            </div>
+                            <div class="mx-5">
+                                <h4 class="text-2xl lg:text-4xl font-semibold text-gray-800">{categories.length}</h4>
+                                <div class="text-gray-700 text-xl lg:text-2xl">Categories</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div className="w-full mx-auto flex-1 flex items-center justify-center px-2">
-                    <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full flex gap-4">
-                        {categories.map((category) => (
+                    <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full flex flex-wrap gap-4">
+                        {categories.filter(search(searchKey)).map((category) => (
                             <div key={category._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
                                 <p className="text-md font-semibold">
                                     {category.name}
