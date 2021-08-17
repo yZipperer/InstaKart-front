@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const listCategories = async () => {
-    return await axios.get(`${process.env.REACT_APP_API_URL}/categories`);
+export const listCategories = async (filter) => {
+    return await axios.post(`${process.env.REACT_APP_API_URL}/categories`, filter);
 };
 
 export const individualCategory = async (slug) => {

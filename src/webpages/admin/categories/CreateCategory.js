@@ -20,7 +20,7 @@ const CreateCategory = () => {
     }, []);
     
     const getCategories = () => {
-        listCategories()
+        listCategories({filter: "created"})
         .then(category => setCategories(category.data));
     };
 
@@ -48,7 +48,7 @@ const CreateCategory = () => {
             removeCategory(slug, rState.user.token)
             .then(res => {
                 setLoading(false);
-                toast.success(`${res.data.name} has been deleted`, {
+                toast.success(`"${res.data.name}" has been deleted`, {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
