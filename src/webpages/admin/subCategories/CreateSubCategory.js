@@ -11,6 +11,7 @@ const CreateSubCategory = () => {
     const [parent, setParent] = useState("");
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
     const [searchKey, setSearchKey] = useState("");
 
     let rState = useSelector((rState) => {
@@ -19,11 +20,17 @@ const CreateSubCategory = () => {
 
     useEffect(() => {
         getCategories();
+        getSubCategories();
     }, []);
     
     const getCategories = () => {
         listCategories({filter: "alphabet"})
         .then(category => setCategories(category.data));
+    };
+
+    const getSubCategories = () => {
+        listSubCategories({filter: "created"})
+        .then(subCategory => setSubCategories(subCategory.data));
     };
 
     const handleSubmit = (event) => {
@@ -35,12 +42,13 @@ const CreateSubCategory = () => {
             setLoading(false);
             setSubCategoryName("");
             toast.success(`Subcategory "${res.data.name}" has been created`);
+            getSubCategories();
         })
         .catch(err => {
             console.log(err);
             setLoading(false);
             if(err.response.status === 400) toast.error(err.response.data);
-        })
+        });
     };
 
     const handleDelete = (slug) => {
@@ -58,6 +66,7 @@ const CreateSubCategory = () => {
                     draggable: true,
                     progress: undefined,
                 });
+                getSubCategories();
             })
             .catch(err => {
                 setLoading(false);
@@ -199,23 +208,23 @@ const CreateSubCategory = () => {
                                 <i class="fas fa-file text-white w-5 h-5 text-center"></i>
                             </div>
                             <div class="mx-5">
-                                <h4 class="text-2xl lg:text-4xl font-semibold text-gray-800">{categories.length}</h4>
-                                <div class="text-gray-700 text-xl lg:text-2xl">Categories</div>
+                                <h4 class="text-2xl lg:text-4xl font-semibold text-gray-800">{subCategories.length}</h4>
+                                <div class="text-gray-700 text-xl lg:text-2xl">Subcategories</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="w-full mx-auto flex-1 flex items-center justify-center px-2">
                     <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full flex flex-wrap gap-4">
-                        {categories.filter(search(searchKey)).map((category) => (
-                            <div key={category._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
+                        {subCategories.filter(search(searchKey)).map((subCategory) => (
+                            <div key={subCategory._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2">
                                 <p className="text-md font-semibold">
-                                    {category.name}
+                                    {subCategory.name}
                                     <span className="space-x-2 pl-2">
-                                        <Link to={`/admin/category/${category.slug}`}>
+                                        <Link to={`/admin/category/${subCategory.slug}`}>
                                             <i class="far fa-edit text-blue-700 hover:blue-900"></i>
                                         </Link>
-                                        <button onClick={() => handleDelete(category.slug)} className="cursor-pointer">
+                                        <button onClick={() => handleDelete(subCategory.slug)} className="cursor-pointer">
                                             <i class="far fa-trash-alt text-red-600 hover:red-800"></i>
                                         </button>
                                     </span>
