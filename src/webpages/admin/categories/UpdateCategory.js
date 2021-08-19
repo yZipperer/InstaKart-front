@@ -67,7 +67,7 @@ const UpdateCategory = ({history, match}) => {
             <input 
                 type="text"
                 className="block border border-blue-400 w-full p-3 rounded mb-4  animate-pulse"
-                placeholder="new category"
+                placeholder="category name"
                 onChange={event => setCategoryName(event.target.value)}
                 value={"loading..."}
                 autoFocus

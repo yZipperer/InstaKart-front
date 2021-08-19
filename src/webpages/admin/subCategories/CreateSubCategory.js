@@ -221,7 +221,7 @@ const CreateSubCategory = () => {
                                 <p className="text-md font-semibold">
                                     {subCategory.name}
                                     <span className="space-x-2 pl-2">
-                                        <Link to={`/admin/category/${subCategory.slug}`}>
+                                        <Link to={`/admin/subcategory/${subCategory.slug}`}>
                                             <i class="far fa-edit text-blue-700 hover:blue-900"></i>
                                         </Link>
                                         <button onClick={() => handleDelete(subCategory.slug)} className="cursor-pointer">
