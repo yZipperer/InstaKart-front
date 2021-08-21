@@ -37,11 +37,25 @@ const AdminSideNav = () => {
                             <span className="text-sm ml-2">Categories</span>
                         </Link>
                     </li>
-                    <li className={IsActive("/admin/subcategories")}>
-                        <Link to="/admin/subcategories" className="flex items-center">
-                            <span className="text-sm ml-2">Sub Categories</span>
+                    <div id="productsCollapse" className="pl-8">
+                        <li className={IsActive("/admin/subcategories")}>
+                            <Link to="/admin/subcategories" className="flex items-center">
+                                <span className="text-sm ml-2">Sub Categories</span>
+                            </Link>
+                        </li>
+                    </div>
+                    <li className={IsActive("/admin/brands")}>
+                        <Link to="/admin/brands" className="flex items-center">
+                            <span className="text-sm ml-2">Brands</span>
                         </Link>
                     </li>
+                    <div id="productsCollapse" className="pl-8">
+                        <li className={IsActive("/admin/subbrands")}>
+                            <Link to="/admin/subbrand" className="flex items-center">
+                                <span className="text-sm ml-2">Subsidiary Brands</span>
+                            </Link>
+                        </li>
+                    </div>
                     <li className={IsActive("/admin/coupons")}>
                         <Link to="/admin/coupons" className="flex items-center">
                             <span className="text-sm ml-2">Coupons</span>
