@@ -4,7 +4,6 @@ import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {createBrand, listBrands, removeBrand} from '../../../apiFunctions/brand';
-import { createBrand } from '../../../apiFunctions/brand';
 
 const CreateBrand = () => {
     const [brandName, setBrandName] = useState("");

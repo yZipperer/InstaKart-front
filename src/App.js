@@ -24,6 +24,8 @@ import CreateCategory from './webpages/admin/categories/CreateCategory';
 import UpdateCategory from './webpages/admin/categories/UpdateCategory';
 import CreateSubCategory from './webpages/admin/subCategories/CreateSubCategory';
 import UpdateSubCategory from './webpages/admin/subCategories/UpdateSubCategory';
+import CreateBrand from './webpages/admin/brands/CreateBrand';
+import UpdateBrand from './webpages/admin/brands/UpdateBrand';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -71,6 +73,8 @@ const App = () => {
         <AdminRoute exact path="/admin/category/:slug" component={UpdateCategory}></AdminRoute>
         <AdminRoute exact path="/admin/subcategories" component={CreateSubCategory}></AdminRoute>
         <AdminRoute exact path="/admin/subcategory/:slug" component={UpdateSubCategory}></AdminRoute>
+        <AdminRoute exact path="/admin/brands" component={CreateBrand}></AdminRoute>
+        <AdminRoute exact path="/admin/brand/:slug" component={UpdateBrand}></AdminRoute>
       </Switch>
     </>
   );
