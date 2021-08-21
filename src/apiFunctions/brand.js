@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const listBrand = async (filter) => {
-    return await axios.post(`${process.env.REACT_APP_API_URL}/brand`, filter);
+export const listBrands = async (filter) => {
+    return await axios.post(`${process.env.REACT_APP_API_URL}/brands`, filter);
 };
 
 export const individualBrand = async (slug) => {
