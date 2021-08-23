@@ -27,6 +27,7 @@ import UpdateSubCategory from './webpages/admin/subCategories/UpdateSubCategory'
 import CreateBrand from './webpages/admin/brands/CreateBrand';
 import UpdateBrand from './webpages/admin/brands/UpdateBrand';
 import CreateSubsidiaryBrand from './webpages/admin/subsidiaryBrand.js/CreateSubsidiaryBrand';
+import UpdateSubsidiaryBrand from './webpages/admin/subsidiaryBrand.js/UpdateSubsidiaryBrand';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const App = () => {
         <AdminRoute exact path="/admin/brands" component={CreateBrand}></AdminRoute>
         <AdminRoute exact path="/admin/brand/:slug" component={UpdateBrand}></AdminRoute>
         <AdminRoute exact path="/admin/subsidiaryBrands" component={CreateSubsidiaryBrand}></AdminRoute>
+        <AdminRoute exact path="/admin/subsidiaryBrand/:slug" component={UpdateSubsidiaryBrand}></AdminRoute>
       </Switch>
     </>
   );
