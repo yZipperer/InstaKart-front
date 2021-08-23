@@ -58,7 +58,7 @@ const Nav = () => {
                       )}
                       
                       <div className="ml-3 relative">
-                          <div className="dropdown">
+                          <div className="dropdown cursor-pointer">
                             {rState.user && (
                               <div className="flex text-sm">
                                 <span className="text-white flex items-center justify-center h-8 pl-4 pr-4 ml-2 rounded-full hover:text-white hover:bg-blue-400">{rState.user.name}</span>

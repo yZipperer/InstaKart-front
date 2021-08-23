@@ -12,62 +12,62 @@ const AdminSideNav = () => {
         <div style={{height: "93.445vh"}} className="w-64 absolute sm:relative bg-gray-800 hidden sm:inline-block shadow h-full flex-col justify-between flex z-10">
             <div className="px-8">
                 <ul className="mt-12">
-                    <li className={IsActive("/admin/dashboard")}>
-                        <Link to="/admin/dashboard" className="flex items-center">
+                    <Link to="/admin/dashboard" className={IsActive("/admin/dashboard")}>
+                        <div className="flex items-center">
                             <span className="text-sm ml-2">Dashboard</span>
-                        </Link>
+                        </div>
                         <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">8</div>
-                    </li>
-                    <li className={IsActive("/admin/products")}>
-                        <Link to="/admin/products" className="flex items-center">
+                    </Link>
+                    <Link to="/admin/products" className={IsActive("/admin/products")}>
+                        <div className="flex items-center">
                             <span className="text-sm ml-2">Products</span>
-                        </Link>
+                        </div>
                         <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
-                    </li>
+                    </Link>
                     <div id="productsCollapse" className="pl-8">
-                        <li className={IsActive("/admin/createproduct")}>
-                            <Link to="/admin/createproduct" className="flex items-center">
+                        <Link to="/admin/createproduct" className={IsActive("/admin/createproduct")}>
+                            <div className="flex items-center">
                                 <i class="far fa-plus-square"></i>
                                 <span className="text-sm ml-2">Create Product</span>
-                            </Link>
-                        </li>
+                            </div>
+                        </Link>
                     </div>
-                    <li className={IsActive("/admin/categories")}>
-                        <Link to="/admin/categories" className="flex items-center">
+                    <Link to="/admin/categories" className={IsActive("/admin/categories")}>
+                        <div className="flex items-center">
                             <span className="text-sm ml-2">Categories</span>
-                        </Link>
-                    </li>
+                        </div>
+                    </Link>
                     <div id="productsCollapse" className="pl-8">
-                        <li className={IsActive("/admin/subcategories")}>
-                            <Link to="/admin/subcategories" className="flex items-center">
+                        <Link to="/admin/subcategories" className={IsActive("/admin/subcategories")}>
+                            <div className="flex items-center">
                                 <span className="text-sm ml-2">Sub Categories</span>
-                            </Link>
-                        </li>
+                            </div>
+                        </Link>
                     </div>
-                    <li className={IsActive("/admin/brands")}>
-                        <Link to="/admin/brands" className="flex items-center">
+                    <Link to="/admin/brands" className={IsActive("/admin/brands")}>
+                        <div className="flex items-center">
                             <span className="text-sm ml-2">Brands</span>
-                        </Link>
-                    </li>
+                        </div>
+                    </Link>
                     <div id="productsCollapse" className="pl-8">
-                        <li className={IsActive("/admin/subbrands")}>
-                            <Link to="/admin/subbrand" className="flex items-center">
+                        <Link to="/admin/subbrand" className={IsActive("/admin/subbrands")}>
+                            <div className="flex items-center">
                                 <span className="text-sm ml-2">Subsidiary Brands</span>
-                            </Link>
-                        </li>
+                            </div>
+                        </Link>
                     </div>
-                    <li className={IsActive("/admin/coupons")}>
-                        <Link to="/admin/coupons" className="flex items-center">
+                    <Link to="/admin/coupons" className={IsActive("/admin/coupons")}>
+                        <div className="flex items-center">
                             <span className="text-sm ml-2">Coupons</span>
-                        </Link>
+                        </div>
                         <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
-                    </li>
-                    <li className={IsActive("/user/settings")}>
-                        <Link to="/user/settings" className="flex items-center">
+                    </Link>
+                    <Link to="/user/settings" className={IsActive("/user/settings")}>
+                        <div className="flex items-center">
                             <span className="text-sm ml-2">Settings-Password</span>
-                        </Link>
+                        </div>
                         <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
-                    </li>
+                    </Link>
                 </ul>
             </div>
         </div>
