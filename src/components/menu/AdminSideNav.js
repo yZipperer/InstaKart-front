@@ -50,7 +50,7 @@ const AdminSideNav = () => {
                         </div>
                     </Link>
                     <div id="productsCollapse" className="pl-8">
-                        <Link to="/admin/subbrand" className={IsActive("/admin/subbrands")}>
+                        <Link to="/admin/subsidiaryBrands" className={IsActive("/admin/subsidiaryBrands")}>
                             <div className="flex items-center">
                                 <span className="text-sm ml-2">Subsidiary Brands</span>
                             </div>
