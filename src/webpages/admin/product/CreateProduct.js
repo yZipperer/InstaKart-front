@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
-//import {createProduct} from '../../../apiFunctions/product';
+import {createProduct} from '../../../apiFunctions/product';
 
 const CreateProduct = () => {
     const [loading, setLoading] = useState(false);
