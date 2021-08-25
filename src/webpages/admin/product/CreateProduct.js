@@ -11,7 +11,7 @@ const productState = {
     price: "",
     pricePerUnit: "",
     quantity: "",
-    suggestedQuanitity: "",
+    suggestedQuantity: "",
     categories: [],
     category: "",
     subCategories: [],
@@ -19,7 +19,7 @@ const productState = {
     subsidiaryBrands: [],
     brand: "",
     subsidiaryBrand: "",
-    shipping: "",
+    shipping: "Yes",
     dimensions: "",
     weight: "",
     origin: "",
@@ -31,15 +31,24 @@ const CreateProduct = () => {
     const [loading, setLoading] = useState(false);
     const [productInfo, setProductInfo] = useState(productState);
 
+    const rState = useSelector((state) => ({...state}));
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        createProduct(productInfo, rState.user.token)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            if(err.response.status === 400) toast.error(err.response.data);
+        });
     };
     const handleChange = (event) => {
-        console.log("sheeeeesh")
+        setProductInfo({...productInfo, [event.target.name]: event.target.value});
     };
 
     const productForm = () => (
-        <form>
+        <form onSubmit={handleSubmit}>
             <label className="font-semibold text-xl">Name</label>
             <input 
                 type="text"
@@ -105,7 +114,7 @@ const CreateProduct = () => {
                     className="block border border-grey-light w-full p-3 rounded mb-4"
                     placeholder="Suggested Quantity in Stock"
                     onChange={handleChange}
-                    value={productInfo.suggestedQuanitity}
+                    value={productInfo.suggestedQuantity}
                     required
                 />
             </div>
@@ -155,6 +164,7 @@ const CreateProduct = () => {
             <div style={{height: "94.1vh"}} className="bg-gray-300 w-full">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                        {JSON.stringify(productInfo)}
                             {loading ? (
                                 loadingProductForm()
                             ) : (
