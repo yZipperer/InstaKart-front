@@ -29,6 +29,7 @@ import UpdateBrand from './webpages/admin/brands/UpdateBrand';
 import CreateSubsidiaryBrand from './webpages/admin/subsidiaryBrand.js/CreateSubsidiaryBrand';
 import UpdateSubsidiaryBrand from './webpages/admin/subsidiaryBrand.js/UpdateSubsidiaryBrand';
 import CreateProduct from './webpages/admin/product/CreateProduct';
+import Products from './webpages/admin/product/products';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -79,8 +80,9 @@ const App = () => {
         <AdminRoute exact path="/admin/brands" component={CreateBrand}></AdminRoute>
         <AdminRoute exact path="/admin/brand/:slug" component={UpdateBrand}></AdminRoute>
         <AdminRoute exact path="/admin/subsidiaryBrands" component={CreateSubsidiaryBrand}></AdminRoute>
-        <AdminRoute exact path="/admin/subsidiaryBrand/:slug" component={UpdateSubsidiaryBrand}></AdminRoute>\
+        <AdminRoute exact path="/admin/subsidiaryBrand/:slug" component={UpdateSubsidiaryBrand}></AdminRoute>
         <AdminRoute exact path="/admin/createproduct" component={CreateProduct}></AdminRoute>
+        <AdminRoute exact path="/admin/products" component={Products}></AdminRoute>
       </Switch>
     </>
   );
