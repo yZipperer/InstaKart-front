@@ -243,7 +243,7 @@ const CreateProduct = ({history}) => {
     return (
         <div className="bg-gray-300 flex">
             <AdminSideNav></AdminSideNav>
-            <div className="bg-gray-300 w-full">
+            <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                             {loading ? (
@@ -252,7 +252,7 @@ const CreateProduct = ({history}) => {
                                 productForm()
                             )}
                         </div>
-                    </div>
+                </div>
             </div>
         </div>
     )
