@@ -44,7 +44,7 @@ const CreateProduct = ({history}) => {
             history.push("/admin/products");
         })
         .catch(err => {
-            if(err.response.status === 400) toast.error(err.response.data);
+            toast.error(err.response.data.err);
         });
     };
     const handleChange = (event) => {
@@ -246,7 +246,6 @@ const CreateProduct = ({history}) => {
             <div className="bg-gray-300 w-full">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                        {JSON.stringify(productInfo)}
                             {loading ? (
                                 loadingProductForm()
                             ) : (
