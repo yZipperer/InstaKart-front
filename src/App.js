@@ -29,7 +29,7 @@ import UpdateBrand from './webpages/admin/brands/UpdateBrand';
 import CreateSubsidiaryBrand from './webpages/admin/subsidiaryBrand.js/CreateSubsidiaryBrand';
 import UpdateSubsidiaryBrand from './webpages/admin/subsidiaryBrand.js/UpdateSubsidiaryBrand';
 import CreateProduct from './webpages/admin/product/CreateProduct';
-import Products from './webpages/admin/product/products';
+import Products from './webpages/admin/product/Products';
 
 const App = () => {
   const dispatch = useDispatch();

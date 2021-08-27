@@ -20,14 +20,16 @@ const productState = {
     brand: "",
     subsidiaryBrand: "",
     shipping: "Yes",
-    dimensions: "",
+    dimensionWidth: null,
+    dimensionHeight: null,
+    dimensionDepth: null,
     weight: "",
-    origin: "",
+    origin: "United States",
     active: true,
     taxable: true
 }
 
-const CreateProduct = () => {
+const CreateProduct = ({history}) => {
     const [loading, setLoading] = useState(false);
     const [productInfo, setProductInfo] = useState(productState);
 
@@ -38,6 +40,8 @@ const CreateProduct = () => {
         createProduct(productInfo, rState.user.token)
         .then(res => {
             console.log(res);
+            toast.success(`Product "${res.data.name}" has been created`);
+            history.push("/admin/products");
         })
         .catch(err => {
             if(err.response.status === 400) toast.error(err.response.data);
@@ -121,16 +125,94 @@ const CreateProduct = () => {
             <label className="font-semibold text-xl">Shipping</label>
             <div className="flex mt-2 flex-wrap">
                 <label className="text-lg">Offer Shipping</label>
-                    <select 
-                        name="shipping"
-                        className="block border border-grey-light w-full p-3 rounded mb-4 mt-1"
+                <select 
+                    name="shipping"
+                    className="block border border-grey-light w-full p-3 rounded mb-4 mt-1"
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <p className="text-red-700">If 'No' selected, local pickup will be the only option for delivery</p>
+                <label className="text-lg w-full mt-2">Origin</label>
+                <select 
+                    name="origin"
+                    className="block border border-grey-light w-full p-3 rounded mb-4 mt-1"
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Japan">Japan</option>
+                    <option value="China">China</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                </select>
+                <label className="text-lg w-full">Dimensions (Inches)</label>
+                <div className="flex mt-2">
+                    <input 
+                        type="number"
+                        name="dimensionWidth"
+                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        placeholder="Width"
                         onChange={handleChange}
+                        value={productInfo.dimensionWidth}
                         required
-                    >
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <p className="text-red-700">If 'No' selected, local pickup will be the only option for delivery</p>
+                    />
+                    <input 
+                        type="number"
+                        name="dimensionHeight"
+                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        placeholder="Height"
+                        onChange={handleChange}
+                        value={productInfo.dimensionHeight}
+                        required
+                    />
+                    <input 
+                        type="number"
+                        name="dimensionDepth"
+                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        placeholder="Depth"
+                        onChange={handleChange}
+                        value={productInfo.dimensionDepth}
+                        required
+                    />
+                </div>
+                <label className="text-lg w-full">Weight (Pounds)</label>
+                <input 
+                    type="number"
+                    name="weight"
+                    className="block border border-grey-light w-full p-3 rounded mb-4"
+                    placeholder="Weight (Pounds)"
+                    onChange={handleChange}
+                    value={productInfo.weight}
+                    required
+                />
+            </div>
+            <label className="font-semibold text-xl">Other</label>
+            <div className="flex mt-2 flex-wrap">
+                <label className="text-lg">Set Product as Active</label>
+                <select 
+                    name="active"
+                    className="block border border-grey-light w-full p-3 rounded mb-4 mt-1"
+                    onChange={handleChange}
+                    required
+                >
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                </select>
+                <p className="text-red-700">If 'No' selected, product will not appear for sale.</p>
+                <label className="text-lg w-full">Taxable</label>
+                <select 
+                    name="taxable"
+                    className="block border border-grey-light w-full p-3 rounded mb-4 mt-1"
+                    onChange={handleChange}
+                    required
+                >
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                </select>
             </div>
             <button
                 type="submit"
@@ -159,9 +241,9 @@ const CreateProduct = () => {
     );
 
     return (
-        <div style={{height: "94.1vh"}} className="bg-gray-300 flex">
+        <div className="bg-gray-300 flex">
             <AdminSideNav></AdminSideNav>
-            <div style={{height: "94.1vh"}} className="bg-gray-300 w-full">
+            <div className="bg-gray-300 w-full">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                         {JSON.stringify(productInfo)}
