@@ -3,8 +3,8 @@ import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {createProduct} from '../../../apiFunctions/product';
+import {listCategories} from '../../../apiFunctions/category';
 import CreateProductForm from '../../../components/forms/CreateProductForm';
-import { create } from 'istanbul-reports';
 
 const productState = {
     name: "",
@@ -36,6 +36,15 @@ const CreateProduct = ({history}) => {
     const [productInfo, setProductInfo] = useState(productState);
 
     const rState = useSelector((state) => ({...state}));
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+    
+    const getCategories = () => {
+        listCategories({filter: "alphabet"})
+        .then(category => setProductInfo({...productInfo, categories: category.data}));
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -78,6 +87,7 @@ const CreateProduct = ({history}) => {
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                            {JSON.stringify(productInfo)}
                             {loading ? (
                                 loadingProductForm()
                             ) : (

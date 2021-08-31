@@ -72,6 +72,15 @@ const CreateProductForm = ({handleSubmit, handleChange, productInfo}) => {
                     required
                 />
             </div>
+            <label className="font-semibold text-xl">Category</label>
+            <div className="flex mt-2">
+                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="category" onChange={handleChange}>
+                    <option>-- Select Parent Category --</option>
+                    {productInfo.categories.length > 0 && productInfo.categories.map((category) => (
+                        <option key={category._id} value={category._id}>{category.name}</option>
+                    ))}
+                </select>
+            </div>
             <label className="font-semibold text-xl">Shipping</label>
             <div className="flex mt-2 flex-wrap">
                 <label className="text-lg">Offer Shipping</label>
