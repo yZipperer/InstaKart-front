@@ -31,3 +31,7 @@ export const createBrand = async (brand, authenticationtoken) => {
         }
     });
 };
+
+export const individualBrandSubsidiaryBrand = async (_id) => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}/brand/subsidiarybrand/${_id}`);
+};

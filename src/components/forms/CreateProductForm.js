@@ -4,12 +4,16 @@ const CreateProductForm = ({
     handleSubmit,
     handleChange,
     handleCategorySelect,
-    handleCheck,
+    handleBrandSelect,
+    handleSubCategoryCheck,
+    handleSubsidiaryBrandCheck,
     productInfo,
     categories,
     subCategories,
     brands,
-    showSubCategorySelect
+    subsidiaryBrands,
+    showSubCategorySelect,
+    showSubsidiaryBrandSelect
 }) => {
     return(
     <form onSubmit={handleSubmit}>
@@ -90,19 +94,14 @@ const CreateProductForm = ({
                         <option key={category._id} value={category._id}>{category.name}</option>
                     ))}
                 </select>
-                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="category" onChange={handleCategorySelect}>
-                    <option>-- Select Subcategory --</option>
-                    {subCategories.length > 0 && subCategories.map((subCategory) => (
-                        <option key={subCategory._id} value={subCategory._id}>{subCategory.name}</option>
-                    ))}
-                </select>
             </div>
+            <label className="text-lg">Subcategories</label>
             <div className="flex mt-2">
                 {showSubCategorySelect? (subCategories.length > 0 && subCategories.map((subCategory) => (
                     <div key={subCategory._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex">
                         <input 
                             type="checkbox" 
-                            onChange={handleCheck} 
+                            onChange={handleSubCategoryCheck} 
                             name="subCategories" 
                             value={subCategory._id}
                         ></input>
@@ -114,12 +113,28 @@ const CreateProductForm = ({
             </div>
             <label className="font-semibold text-xl">Brand</label>
             <div className="flex mt-2">
-                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="brand" onChange={handleChange}>
+                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="brand" onChange={handleBrandSelect}>
                     <option>-- Select Brand --</option>
                     {brands.length > 0 && brands.map((brand) => (
                         <option key={brand._id} value={brand._id}>{brand.name}</option>
                     ))}
                 </select>
+            </div>
+            <label className="text-lg">Subsidiary Brands</label>
+            <div className="flex mt-2">
+                {showSubsidiaryBrandSelect ? (subsidiaryBrands.length > 0 && subsidiaryBrands.map((subsidiaryBrand) => (
+                    <div key={subsidiaryBrand._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex">
+                        <input 
+                            type="checkbox" 
+                            onChange={handleSubsidiaryBrandCheck} 
+                            name="subsidiaryBrands" 
+                            value={subsidiaryBrand._id}
+                        ></input>
+                        <p className="text-md font-semibold">
+                            {subsidiaryBrand.name}
+                        </p>
+                    </div>
+                ))) : null}
             </div>
             <label className="font-semibold text-xl">Shipping</label>
             <div className="flex mt-2 flex-wrap">

@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {createProduct} from '../../../apiFunctions/product';
 import {listCategories, individualCategorySubCategories} from '../../../apiFunctions/category';
-import {listBrands} from '../../../apiFunctions/brand';
+import {listBrands, individualBrandSubsidiaryBrand} from '../../../apiFunctions/brand';
 import CreateProductForm from '../../../components/forms/CreateProductForm';
 
 const productState = {
@@ -17,9 +17,8 @@ const productState = {
     suggestedQuantity: "",
     category: "",
     subCategories: [],
-    subsidiaryBrands: [],
     brand: "",
-    subsidiaryBrand: "",
+    subsidiaryBrands: [],
     shipping: "Yes",
     dimensionLength: null,
     dimensionWidth: null,
@@ -33,11 +32,14 @@ const productState = {
 const CreateProduct = ({history}) => {
     const [loading, setLoading] = useState(false);
     const [showSubCategorySelect, setShowSubCategorySelect] = useState(false);
+    const [showSubsidiaryBrandSelect, setShowSubsidiaryBrandSelect] = useState(false);
     const [productInfo, setProductInfo] = useState(productState);
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
     const [selectedSubCategories, setSelectedSubCategories] = useState([]);
     const [brands, setBrands] = useState([]);
+    const [subsidiaryBrands, setSubsidiaryBrands] = useState([]);
+    const [selectedSubsidiaryBrands, setSelectedSubsidiaryBrands] = useState([]);
 
     const rState = useSelector((state) => ({...state}));
 
@@ -60,6 +62,7 @@ const CreateProduct = ({history}) => {
         event.preventDefault();
 
         setProductInfo({...productInfo, subCategories: selectedSubCategories});
+        setProductInfo({...productInfo, subsidiaryBrands: selectedSubsidiaryBrands});
 
         createProduct(productInfo, rState.user.token)
         .then(res => {
@@ -86,12 +89,32 @@ const CreateProduct = ({history}) => {
         });
     };
 
-    const handleCheck = (event) => {
+    const handleBrandSelect = (event) => {
+        event.preventDefault();
+        setProductInfo({ ...productInfo, brand: event.target.value});
+        individualBrandSubsidiaryBrand(event.target.value)
+        .then(res => {
+            console.log(res.data);
+            setSubsidiaryBrands(res.data);
+            setShowSubsidiaryBrandSelect(true);
+        });
+    };
+
+    const handleSubCategoryCheck = (event) => {
         if (event.target.checked){
             setSelectedSubCategories(selectedSubCategories.concat(event.target.value));
         } else {
             const filtered = selectedSubCategories.filter((e) => e !== event.target.value);
             setSelectedSubCategories(filtered);
+        }
+    };
+
+    const handleSubsidiaryBrandCheck = (event) => {
+        if (event.target.checked){
+            setSelectedSubsidiaryBrands(selectedSubsidiaryBrands.concat(event.target.value));
+        } else {
+            const filtered = selectedSubsidiaryBrands.filter((e) => e !== event.target.value);
+            setSelectedSubsidiaryBrands(filtered);
         }
     };
 
@@ -120,8 +143,6 @@ const CreateProduct = ({history}) => {
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                            {JSON.stringify(productInfo)}
-                            {JSON.stringify(selectedSubCategories)}
                             {loading ? (
                                 loadingProductForm()
                             ) : (
@@ -129,12 +150,16 @@ const CreateProduct = ({history}) => {
                                     handleSubmit={handleSubmit}
                                     handleChange={handleChange}
                                     handleCategorySelect={handleCategorySelect}
-                                    handleCheck={handleCheck}
+                                    handleSubCategoryCheck={handleSubCategoryCheck}
+                                    handleBrandSelect={handleBrandSelect}
+                                    handleSubsidiaryBrandCheck={handleSubsidiaryBrandCheck}
                                     categories={categories}
                                     subCategories= {subCategories}
                                     showSubCategorySelect={showSubCategorySelect}
                                     productInfo={productInfo}
                                     brands={brands}
+                                    subsidiaryBrands={subsidiaryBrands}
+                                    showSubsidiaryBrandSelect={showSubsidiaryBrandSelect}
                                 />
                             )}
                         </div>
