@@ -32,9 +32,11 @@ const productState = {
 
 const CreateProduct = ({history}) => {
     const [loading, setLoading] = useState(false);
+    const [showSubCategorySelect, setShowSubCategorySelect] = useState(false);
     const [productInfo, setProductInfo] = useState(productState);
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
+    const [selectedSubCategories, setSelectedSubCategories] = useState([]);
     const [brands, setBrands] = useState([]);
 
     const rState = useSelector((state) => ({...state}));
@@ -56,6 +58,9 @@ const CreateProduct = ({history}) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        setProductInfo({...productInfo, subCategories: selectedSubCategories});
+
         createProduct(productInfo, rState.user.token)
         .then(res => {
             console.log(res);
@@ -75,8 +80,19 @@ const CreateProduct = ({history}) => {
         setProductInfo({ ...productInfo, category: event.target.value});
         individualCategorySubCategories(event.target.value)
         .then(res => {
+            console.log(res.data);
             setSubCategories(res.data);
+            setShowSubCategorySelect(true);
         });
+    };
+
+    const handleCheck = (event) => {
+        if (event.target.checked){
+            setSelectedSubCategories(selectedSubCategories.concat(event.target.value));
+        } else {
+            const filtered = selectedSubCategories.filter((e) => e !== event.target.value);
+            setSelectedSubCategories(filtered);
+        }
     };
 
     const loadingProductForm = () => (
@@ -105,15 +121,18 @@ const CreateProduct = ({history}) => {
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                             {JSON.stringify(productInfo)}
+                            {JSON.stringify(selectedSubCategories)}
                             {loading ? (
                                 loadingProductForm()
                             ) : (
                                 <CreateProductForm
                                     handleSubmit={handleSubmit}
                                     handleChange={handleChange}
-                                    handleCategorySelect= {handleCategorySelect}
+                                    handleCategorySelect={handleCategorySelect}
+                                    handleCheck={handleCheck}
                                     categories={categories}
                                     subCategories= {subCategories}
+                                    showSubCategorySelect={showSubCategorySelect}
                                     productInfo={productInfo}
                                     brands={brands}
                                 />

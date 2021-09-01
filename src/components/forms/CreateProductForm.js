@@ -1,6 +1,16 @@
 import React from 'react';
 
-const CreateProductForm = ({handleSubmit, handleChange,handleCategorySelect, productInfo, categories, subCategories, brands}) => {
+const CreateProductForm = ({
+    handleSubmit,
+    handleChange,
+    handleCategorySelect,
+    handleCheck,
+    productInfo,
+    categories,
+    subCategories,
+    brands,
+    showSubCategorySelect
+}) => {
     return(
     <form onSubmit={handleSubmit}>
             <label className="font-semibold text-xl">Name</label>
@@ -86,6 +96,21 @@ const CreateProductForm = ({handleSubmit, handleChange,handleCategorySelect, pro
                         <option key={subCategory._id} value={subCategory._id}>{subCategory.name}</option>
                     ))}
                 </select>
+            </div>
+            <div className="flex mt-2">
+                {showSubCategorySelect? (subCategories.length > 0 && subCategories.map((subCategory) => (
+                    <div key={subCategory._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex">
+                        <input 
+                            type="checkbox" 
+                            onChange={handleCheck} 
+                            name="subCategories" 
+                            value={subCategory._id}
+                        ></input>
+                        <p className="text-md font-semibold">
+                            {subCategory.name}
+                        </p>
+                    </div>
+                ))) : null}
             </div>
             <label className="font-semibold text-xl">Brand</label>
             <div className="flex mt-2">
