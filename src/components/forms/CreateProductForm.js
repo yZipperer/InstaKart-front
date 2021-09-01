@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CreateProductForm = ({handleSubmit, handleChange, productInfo}) => {
+const CreateProductForm = ({handleSubmit, handleChange,handleCategorySelect, productInfo, categories, subCategories, brands}) => {
     return(
     <form onSubmit={handleSubmit}>
             <label className="font-semibold text-xl">Name</label>
@@ -74,10 +74,25 @@ const CreateProductForm = ({handleSubmit, handleChange, productInfo}) => {
             </div>
             <label className="font-semibold text-xl">Category</label>
             <div className="flex mt-2">
-                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="category" onChange={handleChange}>
-                    <option>-- Select Parent Category --</option>
-                    {productInfo.categories.length > 0 && productInfo.categories.map((category) => (
+                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="category" onChange={handleCategorySelect}>
+                    <option>-- Select Category --</option>
+                    {categories.length > 0 && categories.map((category) => (
                         <option key={category._id} value={category._id}>{category.name}</option>
+                    ))}
+                </select>
+                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="category" onChange={handleCategorySelect}>
+                    <option>-- Select Subcategory --</option>
+                    {subCategories.length > 0 && subCategories.map((subCategory) => (
+                        <option key={subCategory._id} value={subCategory._id}>{subCategory.name}</option>
+                    ))}
+                </select>
+            </div>
+            <label className="font-semibold text-xl">Brand</label>
+            <div className="flex mt-2">
+                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="brand" onChange={handleChange}>
+                    <option>-- Select Brand --</option>
+                    {brands.length > 0 && brands.map((brand) => (
+                        <option key={brand._id} value={brand._id}>{brand.name}</option>
                     ))}
                 </select>
             </div>
@@ -112,6 +127,15 @@ const CreateProductForm = ({handleSubmit, handleChange, productInfo}) => {
                 <div className="flex mt-2">
                     <input 
                         type="number"
+                        name="dimensionLength"
+                        className="block border border-grey-light w-full p-3 rounded mb-4"
+                        placeholder="Length"
+                        onChange={handleChange}
+                        value={productInfo.dimensionLength}
+                        required
+                    />
+                    <input 
+                        type="number"
                         name="dimensionWidth"
                         className="block border border-grey-light w-full p-3 rounded mb-4"
                         placeholder="Width"
@@ -119,22 +143,13 @@ const CreateProductForm = ({handleSubmit, handleChange, productInfo}) => {
                         value={productInfo.dimensionWidth}
                         required
                     />
-                    <input 
-                        type="number"
-                        name="dimensionHeight"
-                        className="block border border-grey-light w-full p-3 rounded mb-4"
-                        placeholder="Height"
-                        onChange={handleChange}
-                        value={productInfo.dimensionHeight}
-                        required
-                    />
                 <input 
                     type="number"
-                    name="dimensionDepth"
+                    name="dimensionHeight"
                     className="block border border-grey-light w-full p-3 rounded mb-4"
-                    placeholder="Depth"
+                    placeholder="Height"
                     onChange={handleChange}
-                    value={productInfo.dimensionDepth}
+                    value={productInfo.dimensionHeight}
                     required
                 />
             </div>

@@ -3,7 +3,8 @@ import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {createProduct} from '../../../apiFunctions/product';
-import {listCategories} from '../../../apiFunctions/category';
+import {listCategories, individualCategorySubCategories} from '../../../apiFunctions/category';
+import {listBrands} from '../../../apiFunctions/brand';
 import CreateProductForm from '../../../components/forms/CreateProductForm';
 
 const productState = {
@@ -14,17 +15,15 @@ const productState = {
     pricePerUnit: "",
     quantity: "",
     suggestedQuantity: "",
-    categories: [],
     category: "",
     subCategories: [],
-    brands: [],
     subsidiaryBrands: [],
     brand: "",
     subsidiaryBrand: "",
     shipping: "Yes",
+    dimensionLength: null,
     dimensionWidth: null,
     dimensionHeight: null,
-    dimensionDepth: null,
     weight: "",
     origin: "United States",
     active: true,
@@ -34,16 +33,25 @@ const productState = {
 const CreateProduct = ({history}) => {
     const [loading, setLoading] = useState(false);
     const [productInfo, setProductInfo] = useState(productState);
+    const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
+    const [brands, setBrands] = useState([]);
 
     const rState = useSelector((state) => ({...state}));
 
     useEffect(() => {
         getCategories();
+        getBrands();
     }, []);
     
     const getCategories = () => {
         listCategories({filter: "alphabet"})
-        .then(category => setProductInfo({...productInfo, categories: category.data}));
+        .then(category => setCategories(category.data));
+    };
+
+    const getBrands = async() => {
+        listBrands({filter: "alphabet"})
+        .then(brand => setBrands(brand.data));
     };
 
     const handleSubmit = (event) => {
@@ -60,6 +68,15 @@ const CreateProduct = ({history}) => {
     };
     const handleChange = (event) => {
         setProductInfo({...productInfo, [event.target.name]: event.target.value});
+    };
+
+    const handleCategorySelect = (event) => {
+        event.preventDefault();
+        setProductInfo({ ...productInfo, category: event.target.value});
+        individualCategorySubCategories(event.target.value)
+        .then(res => {
+            setSubCategories(res.data);
+        });
     };
 
     const loadingProductForm = () => (
@@ -94,7 +111,11 @@ const CreateProduct = ({history}) => {
                                 <CreateProductForm
                                     handleSubmit={handleSubmit}
                                     handleChange={handleChange}
+                                    handleCategorySelect= {handleCategorySelect}
+                                    categories={categories}
+                                    subCategories= {subCategories}
                                     productInfo={productInfo}
+                                    brands={brands}
                                 />
                             )}
                         </div>
