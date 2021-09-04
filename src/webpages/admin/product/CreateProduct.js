@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
+import Resizer from 'react-image-file-resizer';
+import axios from 'axios';
 import {createProduct} from '../../../apiFunctions/product';
 import {listCategories, individualCategorySubCategories} from '../../../apiFunctions/category';
 import {listBrands, individualBrandSubsidiaryBrand} from '../../../apiFunctions/brand';
@@ -118,12 +120,24 @@ const CreateProduct = ({history}) => {
         }
     };
 
+    const handleResize = (event) => {
+        let files = event.target.files;
+
+        if(files) {
+            for (let i = 0; i < files.length; i++){
+                Resizer.imageFileResizer(files[i], 720, 720, "JPEG", 100, 0, (url) => {
+                    console.log(url);
+                }, "base64");
+            }
+        }
+    };
+
     const loadingProductForm = () => (
         <form>
             <input 
                 type="text"
                 className="block border border-blue-400 w-full p-3 rounded mb-4  animate-pulse"
-                placeholder="new category"
+                placeholder="new product"
                 value={"loading ..."}
                 autoFocus
                 disabled
@@ -153,6 +167,7 @@ const CreateProduct = ({history}) => {
                                     handleSubCategoryCheck={handleSubCategoryCheck}
                                     handleBrandSelect={handleBrandSelect}
                                     handleSubsidiaryBrandCheck={handleSubsidiaryBrandCheck}
+                                    handleResize={handleResize}
                                     categories={categories}
                                     subCategories= {subCategories}
                                     showSubCategorySelect={showSubCategorySelect}

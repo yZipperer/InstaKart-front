@@ -7,6 +7,7 @@ const CreateProductForm = ({
     handleBrandSelect,
     handleSubCategoryCheck,
     handleSubsidiaryBrandCheck,
+    handleResize,
     productInfo,
     categories,
     subCategories,
@@ -36,6 +37,18 @@ const CreateProductForm = ({
                 placeholder="Product Description"
                 onChange={handleChange}
                 value={productInfo.description}
+                required
+            />
+            <label className="font-semibold text-xl">Images</label>
+            <input 
+                type="file"
+                multiple
+                accept="images/*"
+                name="images"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Product Description"
+                onChange={handleResize}
+                value={productInfo.images}
                 required
             />
             <label className="font-semibold text-xl">Price</label>
