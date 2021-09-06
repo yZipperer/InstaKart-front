@@ -42,6 +42,7 @@ const CreateProduct = ({history}) => {
     const [brands, setBrands] = useState([]);
     const [subsidiaryBrands, setSubsidiaryBrands] = useState([]);
     const [selectedSubsidiaryBrands, setSelectedSubsidiaryBrands] = useState([]);
+    const [imageData, setImageData] = useState([]);
 
     const rState = useSelector((state) => ({...state}));
 
@@ -65,6 +66,7 @@ const CreateProduct = ({history}) => {
 
         setProductInfo({...productInfo, subCategories: selectedSubCategories});
         setProductInfo({...productInfo, subsidiaryBrands: selectedSubsidiaryBrands});
+        handleImageUpload();
 
         createProduct(productInfo, rState.user.token)
         .then(res => {
@@ -126,10 +128,36 @@ const CreateProduct = ({history}) => {
         if(files) {
             for (let i = 0; i < files.length; i++){
                 Resizer.imageFileResizer(files[i], 720, 720, "JPEG", 100, 0, (url) => {
-                    console.log(url);
+                    imageData.push(url);
                 }, "base64");
             }
         }
+    };
+
+    const handleImageUpload = () => {
+        let uploads = productInfo.images;
+
+        if(imageData) {
+            setLoading(true);
+            for (let i = 0; i < imageData.length; i++){
+                axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: imageData[i]}, {
+                    headers: {
+                        authenticationtoken: rState.user.token
+                    }
+                })
+                .then(res => {
+                    console.log("Image Upload Response", res);
+                    setLoading(false);
+                    uploads.push(res.data);
+                    setProductInfo({...productInfo, images: uploads});
+                })
+                .catch(err => {
+                    setLoading(false);
+                    console.log(err);
+                });
+            }
+        }
+        
     };
 
     const loadingProductForm = () => (
@@ -157,6 +185,7 @@ const CreateProduct = ({history}) => {
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                            {JSON.stringify(productInfo.images)}
                             {loading ? (
                                 loadingProductForm()
                             ) : (
@@ -168,6 +197,7 @@ const CreateProduct = ({history}) => {
                                     handleBrandSelect={handleBrandSelect}
                                     handleSubsidiaryBrandCheck={handleSubsidiaryBrandCheck}
                                     handleResize={handleResize}
+                                    setLoading={setLoading}
                                     categories={categories}
                                     subCategories= {subCategories}
                                     showSubCategorySelect={showSubCategorySelect}

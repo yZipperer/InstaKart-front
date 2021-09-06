@@ -8,6 +8,7 @@ const CreateProductForm = ({
     handleSubCategoryCheck,
     handleSubsidiaryBrandCheck,
     handleResize,
+    setLoading,
     productInfo,
     categories,
     subCategories,
@@ -48,7 +49,6 @@ const CreateProductForm = ({
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
                 placeholder="Product Description"
                 onChange={handleResize}
-                value={productInfo.images}
                 required
             />
             <label className="font-semibold text-xl">Price</label>
