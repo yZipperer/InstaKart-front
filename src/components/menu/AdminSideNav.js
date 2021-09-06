@@ -14,59 +14,63 @@ const AdminSideNav = () => {
                 <ul className="mt-12">
                     <Link to="/admin/dashboard" className={IsActive("/admin/dashboard")}>
                         <div className="flex items-center">
+                            <i class="fas fa-th"></i>
                             <span className="text-sm ml-2">Dashboard</span>
                         </div>
-                        <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">8</div>
                     </Link>
                     <Link to="/admin/products" className={IsActive("/admin/products")}>
                         <div className="flex items-center">
+                            <i class="fas fa-boxes"></i>
                             <span className="text-sm ml-2">Products</span>
                         </div>
-                        <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
                     </Link>
                     <div id="productsCollapse" className="pl-8">
                         <Link to="/admin/createproduct" className={IsActive("/admin/createproduct")}>
                             <div className="flex items-center">
-                                <i class="far fa-plus-square"></i>
+                                <i class="fas fa-plus"></i>
                                 <span className="text-sm ml-2">Create Product</span>
                             </div>
                         </Link>
                     </div>
                     <Link to="/admin/categories" className={IsActive("/admin/categories")}>
                         <div className="flex items-center">
+                            <i class="far fa-object-group"></i>
                             <span className="text-sm ml-2">Categories</span>
                         </div>
                     </Link>
                     <div id="productsCollapse" className="pl-8">
                         <Link to="/admin/subcategories" className={IsActive("/admin/subcategories")}>
                             <div className="flex items-center">
+                                <i class="fas fa-plus"></i>
                                 <span className="text-sm ml-2">Sub Categories</span>
                             </div>
                         </Link>
                     </div>
                     <Link to="/admin/brands" className={IsActive("/admin/brands")}>
                         <div className="flex items-center">
+                            <i class="far fa-object-group"></i>
                             <span className="text-sm ml-2">Brands</span>
                         </div>
                     </Link>
                     <div id="productsCollapse" className="pl-8">
                         <Link to="/admin/subsidiaryBrands" className={IsActive("/admin/subsidiaryBrands")}>
                             <div className="flex items-center">
+                                <i class="fas fa-plus"></i>
                                 <span className="text-sm ml-2">Subsidiary Brands</span>
                             </div>
                         </Link>
                     </div>
                     <Link to="/admin/coupons" className={IsActive("/admin/coupons")}>
                         <div className="flex items-center">
+                            <i class="fas fa-ad"></i>
                             <span className="text-sm ml-2">Coupons</span>
                         </div>
-                        <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
                     </Link>
                     <Link to="/user/settings" className={IsActive("/user/settings")}>
                         <div className="flex items-center">
+                            <i class="fas fa-cogs"></i>
                             <span className="text-sm ml-2">Settings-Password</span>
                         </div>
-                        <div className="py-1 px-3 bg-gray-600 rounded text-gray-300 flex items-center justify-center text-xs">3</div>
                     </Link>
                 </ul>
             </div>

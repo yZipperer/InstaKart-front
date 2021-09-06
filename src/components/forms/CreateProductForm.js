@@ -110,14 +110,15 @@ const CreateProductForm = ({
                     ))}
                 </select>
             </div>
-            <label className="text-lg">Subcategories</label>
+            {productInfo.category ? <label className="text-lg">Subcategories</label> : null}
             <div className="flex mt-2">
                 {showSubCategorySelect? (subCategories.length > 0 && subCategories.map((subCategory) => (
-                    <div key={subCategory._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex">
+                    <div key={subCategory._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex space-x-1 items-center">
                         <input 
                             type="checkbox" 
                             onChange={handleSubCategoryCheck} 
-                            name="subCategories" 
+                            name="subCategories"
+                            className="inline-block w-4 h-4 align-middle" 
                             value={subCategory._id}
                         ></input>
                         <p className="text-md font-semibold">
@@ -135,14 +136,15 @@ const CreateProductForm = ({
                     ))}
                 </select>
             </div>
-            <label className="text-lg">Subsidiary Brands</label>
+            {productInfo.brand ? <label className="text-lg">Subsidiary Brands</label> : null}
             <div className="flex mt-2">
                 {showSubsidiaryBrandSelect ? (subsidiaryBrands.length > 0 && subsidiaryBrands.map((subsidiaryBrand) => (
-                    <div key={subsidiaryBrand._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex">
+                    <div key={subsidiaryBrand._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex space-x-1 items-center">
                         <input 
                             type="checkbox" 
                             onChange={handleSubsidiaryBrandCheck} 
-                            name="subsidiaryBrands" 
+                            name="subsidiaryBrands"
+                            className="inline-block w-4 h-4 align-middle" 
                             value={subsidiaryBrand._id}
                         ></input>
                         <p className="text-md font-semibold">
@@ -178,7 +180,7 @@ const CreateProductForm = ({
                     <option value="China">China</option>
                     <option value="United Kingdom">United Kingdom</option>
                 </select>
-                <label className="text-lg w-full">Dimensions (Inches)</label>
+                <label className="text-lg w-full">Dimensions in Inches (Length x Width x Height)</label>
                 <div className="flex mt-2">
                     <input 
                         type="number"
@@ -213,7 +215,7 @@ const CreateProductForm = ({
                 type="number"
                 name="weight"
                 className="block border border-grey-light w-full p-3 rounded mb-4"
-                placeholder="Weight (Pounds)"
+                placeholder="Weight (lbs)"
                 onChange={handleChange}
                 value={productInfo.weight}
                 required
