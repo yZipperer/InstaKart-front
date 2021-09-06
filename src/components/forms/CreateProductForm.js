@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 const CreateProductForm = ({
     handleSubmit,
@@ -8,7 +8,6 @@ const CreateProductForm = ({
     handleSubCategoryCheck,
     handleSubsidiaryBrandCheck,
     handleResize,
-    setLoading,
     productInfo,
     categories,
     subCategories,
@@ -41,6 +40,9 @@ const CreateProductForm = ({
                 required
             />
             <label className="font-semibold text-xl">Images</label>
+            <div id="imageDisplay" className="flex space-x-1 mt-2">
+
+            </div>
             <input 
                 type="file"
                 multiple

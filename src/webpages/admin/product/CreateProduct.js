@@ -56,19 +56,19 @@ const CreateProduct = ({history}) => {
         .then(category => setCategories(category.data));
     };
 
-    const getBrands = async() => {
+    const getBrands = () => {
         listBrands({filter: "alphabet"})
         .then(brand => setBrands(brand.data));
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         setProductInfo({...productInfo, subCategories: selectedSubCategories});
         setProductInfo({...productInfo, subsidiaryBrands: selectedSubsidiaryBrands});
         handleImageUpload();
 
-        createProduct(productInfo, rState.user.token)
+        await createProduct(productInfo, rState.user.token)
         .then(res => {
             console.log(res);
             toast.success(`Product "${res.data.name}" has been created`);
@@ -124,20 +124,44 @@ const CreateProduct = ({history}) => {
 
     const handleResize = (event) => {
         let files = event.target.files;
+        setImageData([]);
 
         if(files) {
             for (let i = 0; i < files.length; i++){
                 Resizer.imageFileResizer(files[i], 720, 720, "JPEG", 100, 0, (url) => {
-                    imageData.push(url);
+                    let imgData = imageData;
+                    imgData.push(url);
+                    setImageData(imgData);
+                    displayImages();
                 }, "base64");
             }
+            
+        }
+    };
+
+    const displayImages = () => {
+        const imageDisplay = document.getElementById("imageDisplay");
+
+        if (imageDisplay.hasChildNodes()) {
+            var child = imageDisplay.lastElementChild; 
+            while (child) {
+                imageDisplay.removeChild(child);
+                child = imageDisplay.lastElementChild;
+            }
+        }
+
+        for (let i = 0; i < imageData.length; i++){
+            let content = document.createElement("img");
+            content.src = imageData[i];
+            content.setAttribute("class", "w-16 h-12");
+            imageDisplay.appendChild(content);
         }
     };
 
     const handleImageUpload = () => {
         let uploads = productInfo.images;
 
-        if(imageData) {
+        if(imageData.length > 0) {
             setLoading(true);
             for (let i = 0; i < imageData.length; i++){
                 axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: imageData[i]}, {
@@ -185,7 +209,6 @@ const CreateProduct = ({history}) => {
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                            {JSON.stringify(productInfo.images)}
                             {loading ? (
                                 loadingProductForm()
                             ) : (
@@ -197,7 +220,6 @@ const CreateProduct = ({history}) => {
                                     handleBrandSelect={handleBrandSelect}
                                     handleSubsidiaryBrandCheck={handleSubsidiaryBrandCheck}
                                     handleResize={handleResize}
-                                    setLoading={setLoading}
                                     categories={categories}
                                     subCategories= {subCategories}
                                     showSubCategorySelect={showSubCategorySelect}
