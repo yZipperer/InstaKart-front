@@ -3,6 +3,7 @@ import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {listProducts} from '../../../apiFunctions/product';
+import ProductCard from '../../../components/cards/ProductCard';
 
 const Products = () => {
     const [loading, setLoading] = useState(false);
@@ -31,7 +32,12 @@ const Products = () => {
             <AdminSideNav></AdminSideNav>
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
-                        {JSON.stringify(products)}
+                        {products && products.map(product => {
+                            return <ProductCard
+                                product={product}
+                                key={product._id}
+                            />
+                        })}
 
                     </div>
             </div>
