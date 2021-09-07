@@ -38,10 +38,8 @@ const CreateProduct = ({history}) => {
     const [productInfo, setProductInfo] = useState(productState);
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
-    const [selectedSubCategories, setSelectedSubCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [subsidiaryBrands, setSubsidiaryBrands] = useState([]);
-    const [selectedSubsidiaryBrands, setSelectedSubsidiaryBrands] = useState([]);
     const [imageData, setImageData] = useState([]);
 
     const rState = useSelector((state) => ({...state}));
@@ -63,14 +61,11 @@ const CreateProduct = ({history}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        setProductInfo({...productInfo, subCategories: selectedSubCategories});
-        setProductInfo({...productInfo, subsidiaryBrands: selectedSubsidiaryBrands});
-        handleImageUpload();
+        
+        await handleImageUpload();
 
         await createProduct(productInfo, rState.user.token)
         .then(res => {
-            console.log(res);
             toast.success(`Product "${res.data.name}" has been created`);
             history.push("/admin/products");
         })
@@ -78,6 +73,7 @@ const CreateProduct = ({history}) => {
             toast.error(err.response.data.err);
         });
     };
+
     const handleChange = (event) => {
         setProductInfo({...productInfo, [event.target.name]: event.target.value});
     };
@@ -87,7 +83,6 @@ const CreateProduct = ({history}) => {
         setProductInfo({ ...productInfo, category: event.target.value});
         individualCategorySubCategories(event.target.value)
         .then(res => {
-            console.log(res.data);
             setSubCategories(res.data);
             setShowSubCategorySelect(true);
         });
@@ -98,7 +93,6 @@ const CreateProduct = ({history}) => {
         setProductInfo({ ...productInfo, brand: event.target.value});
         individualBrandSubsidiaryBrand(event.target.value)
         .then(res => {
-            console.log(res.data);
             setSubsidiaryBrands(res.data);
             setShowSubsidiaryBrandSelect(true);
         });
@@ -106,19 +100,19 @@ const CreateProduct = ({history}) => {
 
     const handleSubCategoryCheck = (event) => {
         if (event.target.checked){
-            setSelectedSubCategories(selectedSubCategories.concat(event.target.value));
+            productInfo.subCategories = productInfo.subCategories.concat(event.target.value);
         } else {
-            const filtered = selectedSubCategories.filter((e) => e !== event.target.value);
-            setSelectedSubCategories(filtered);
+            const filtered = productInfo.subCategories.filter((e) => e !== event.target.value);
+            productInfo.subCategories = filtered;
         }
     };
 
     const handleSubsidiaryBrandCheck = (event) => {
         if (event.target.checked){
-            setSelectedSubsidiaryBrands(selectedSubsidiaryBrands.concat(event.target.value));
+            productInfo.subsidiaryBrands = productInfo.subsidiaryBrands.concat(event.target.value);
         } else {
-            const filtered = selectedSubsidiaryBrands.filter((e) => e !== event.target.value);
-            setSelectedSubsidiaryBrands(filtered);
+            const filtered = productInfo.subsidiaryBrands.filter((e) => e !== event.target.value);
+            productInfo.subsidiaryBrands = filtered;
         }
     };
 
@@ -158,19 +152,18 @@ const CreateProduct = ({history}) => {
         }
     };
 
-    const handleImageUpload = () => {
+    const handleImageUpload = async () => {
         let uploads = productInfo.images;
 
         if(imageData.length > 0) {
             setLoading(true);
             for (let i = 0; i < imageData.length; i++){
-                axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: imageData[i]}, {
+                await axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: imageData[i]}, {
                     headers: {
                         authenticationtoken: rState.user.token
                     }
                 })
                 .then(res => {
-                    console.log("Image Upload Response", res);
                     setLoading(false);
                     uploads.push(res.data);
                     setProductInfo({...productInfo, images: uploads});

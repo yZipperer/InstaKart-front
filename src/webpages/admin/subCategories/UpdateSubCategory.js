@@ -104,9 +104,9 @@ const UpdateSubCategory = ({history, match}) => {
     );
 
     return (
-        <div style={{height: "94.1vh"}} className="bg-gray-300 flex">
+        <div className="bg-gray-300 flex">
             <AdminSideNav></AdminSideNav>
-            <div style={{height: "94.1vh"}} className="bg-gray-300 w-full">
+            <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                 <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4">
                     <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                         {loading ? (

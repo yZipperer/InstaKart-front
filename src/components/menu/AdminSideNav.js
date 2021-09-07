@@ -9,7 +9,7 @@ const IsActive = (path) => {
 
 const AdminSideNav = () => {
     return (
-        <div style={{height: "93.445vh"}} className="w-64 absolute sm:relative bg-gray-800 hidden sm:inline-block shadow h-full flex-col justify-between flex z-10">
+        <div style={{height: "93.445vh"}} className="w-64 absolute sm:relative bg-gray-800 sm:inline-block shadow h-full flex-col justify-between flex z-10">
             <div className="px-8">
                 <ul className="mt-12">
                     <Link to="/admin/dashboard" className={IsActive("/admin/dashboard")}>
