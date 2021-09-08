@@ -28,7 +28,8 @@ const productState = {
     weight: "",
     origin: "United States",
     active: true,
-    taxable: true
+    taxable: true,
+    seasonal: "All"
 }
 
 const CreateProduct = ({history}) => {

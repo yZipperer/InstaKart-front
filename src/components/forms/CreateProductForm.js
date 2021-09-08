@@ -244,6 +244,19 @@ const CreateProductForm = ({
                 <option value={true}>Yes</option>
                 <option value={false}>No</option>
             </select>
+            <label className="text-lg w-full">Seasonal</label>
+            <select 
+                name="seasonal"
+                className="block border border-grey-light w-full p-3 rounded mb-4 mt-1"
+                onChange={handleChange}
+                required
+            >
+                <option value={"All"}>All</option>
+                <option value={"Winter"}>Winter</option>
+                <option value={"Spring"}>Spring</option>
+                <option value={"Summer"}>Summer</option>
+                <option value={"Fall"}>Fall</option>
+            </select>
         </div>
         <button
             type="submit"
