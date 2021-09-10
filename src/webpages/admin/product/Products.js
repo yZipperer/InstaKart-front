@@ -4,6 +4,7 @@ import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {listProducts} from '../../../apiFunctions/product';
 import ProductCard from '../../../components/cards/ProductCard';
+import {deleteProduct} from '../../../apiFunctions/product';
 
 const Products = () => {
     const [loading, setLoading] = useState(false);
@@ -12,6 +13,10 @@ const Products = () => {
     useEffect(() => {
         getProducts();
     }, []);
+
+    let rState = useSelector((rState) => {
+        return rState;
+    });
 
     const getProducts = () => {
         setLoading(true);
@@ -27,6 +32,20 @@ const Products = () => {
             });
     };
 
+    const handleDeletion = (slug) => {
+        if(window.confirm("Are you sure you want to delete this product?")) {
+            deleteProduct(slug, rState.user.token)
+            .then(res => {
+                getProducts();
+                toast.success(`Product "${res.data.name}" has been Deleted`);
+            })
+            .catch(err => {
+                console.log(err);
+                if(err.response.status === 400) toast.error(err.response.data);
+            })
+        }
+    };
+
     return (
         <div className="bg-gray-300 flex">
             <AdminSideNav></AdminSideNav>
@@ -36,6 +55,7 @@ const Products = () => {
                             <ProductCard
                                 product={product}
                                 key={product._id}
+                                handleDeletion={handleDeletion}
                             />
                         ))}
 

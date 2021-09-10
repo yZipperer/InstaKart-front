@@ -1,11 +1,12 @@
 import React from 'react';
 import noImage from '../../images/no-image-found.png';
 
-const ProductCard = ({product}) => {
+const ProductCard = ({product, handleDeletion}) => {
     const {
         name,
         images,
-        price
+        price,
+        slug
     } = product
 
     const imageUrl = images && images.length ? images[0].url : noImage;
@@ -17,7 +18,7 @@ const ProductCard = ({product}) => {
                     className="h-full w-full"
                 >
                     <span className="float-right border-gray-500 border-2 hover:border-gray-700 hover:border-4 flex items-center flex-wrap rounded-full m-2  text-lg">
-                        <i class="far fa-trash-alt p-3 text-gray-500 hover:text-red-700 hover:bg-red-200 hover:bg-opacity-30 rounded-full"></i>
+                        <i class="far fa-trash-alt p-3 text-gray-500 hover:text-red-700 hover:bg-red-200 hover:bg-opacity-30 rounded-full" onClick={() => handleDeletion(slug)}></i>
                         <i class="far fa-edit p-3 text-gray-500 hover:text-blue-700 hover:bg-blue-200 hover:bg-opacity-30 rounded-full"></i>
                     </span>
                 </div>
