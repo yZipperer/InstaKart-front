@@ -31,7 +31,7 @@ const Products = () => {
         <div className="bg-gray-300 flex">
             <AdminSideNav></AdminSideNav>
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
-                    <div className="container mx-auto flex-1 flex items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
+                    <div className="container mx-auto flex-1 flex items-center justify-center px-2 mt-4 mb-4 flex-wrap w-full">
                         {products && products.map(product => (
                             <ProductCard
                                 product={product}
