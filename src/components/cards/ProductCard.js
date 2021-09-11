@@ -1,5 +1,6 @@
 import React from 'react';
 import noImage from '../../images/no-image-found.png';
+import {Link} from 'react-router-dom';
 
 const ProductCard = ({product, handleDeletion}) => {
     const {
@@ -19,7 +20,9 @@ const ProductCard = ({product, handleDeletion}) => {
                 >
                     <span className="float-right border-gray-500 border-2 hover:border-gray-700 hover:border-4 flex items-center flex-wrap rounded-full m-2  text-lg">
                         <i class="far fa-trash-alt p-3 text-gray-500 hover:text-red-700 hover:bg-red-200 hover:bg-opacity-30 rounded-full" onClick={() => handleDeletion(slug)}></i>
-                        <i class="far fa-edit p-3 text-gray-500 hover:text-blue-700 hover:bg-blue-200 hover:bg-opacity-30 rounded-full"></i>
+                        <Link to={`/admin/product/${slug}`}>
+                            <i class="far fa-edit p-3 text-gray-500 hover:text-blue-700 hover:bg-blue-200 hover:bg-opacity-30 rounded-full"></i>
+                        </Link>
                     </span>
                 </div>
                 <div class="p-5">
