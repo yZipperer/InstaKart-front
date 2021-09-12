@@ -27,3 +27,11 @@ export const deleteProduct = async (slug, authenticationtoken) => {
 export const individualProduct = async (slug) => {
     return await axios.get(`${process.env.REACT_APP_API_URL}/product/${slug}`)
 };
+
+export const individualProductUpdate = async (slug, authenticationtoken) => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}/productupdate/${slug}`, {
+        headers: {
+            authenticationtoken: authenticationtoken
+        }
+    });
+}
