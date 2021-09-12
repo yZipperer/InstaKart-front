@@ -99,7 +99,7 @@ const UpdateProduct = ({match}) => {
 
     const handleCategorySelect = (event) => {
         event.preventDefault();
-        setProductInfo({ ...productInfo, category: event.target.value});
+        setProductInfo({ ...productInfo, category: event.target.value, subCategories: []});
         individualCategorySubCategories(event.target.value)
         .then(res => {
             setSubCategories(res.data);
@@ -109,7 +109,7 @@ const UpdateProduct = ({match}) => {
 
     const handleBrandSelect = (event) => {
         event.preventDefault();
-        setProductInfo({ ...productInfo, brand: event.target.value});
+        setProductInfo({ ...productInfo, brand: event.target.value, subsidiaryBrands: []});
         individualBrandSubsidiaryBrand(event.target.value)
         .then(res => {
             setSubsidiaryBrands(res.data);

@@ -103,8 +103,7 @@ const UpdateProductForm = ({
             </div>
             <label className="font-semibold text-xl">Category</label>
             <div className="flex mt-2">
-                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="category" onChange={handleCategorySelect}>
-                    <option>{productInfo.category ? productInfo.category.name : "-- Select Category --"}</option>
+                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="category" onChange={handleCategorySelect} value={productInfo.category._id}>
                     {categories.length > 0 && categories.map((category) => (
                         <option key={category._id} value={category._id}>{category.name}</option>
                     ))}
@@ -132,8 +131,7 @@ const UpdateProductForm = ({
             </div>
             <label className="font-semibold text-xl">Brand</label>
             <div className="flex mt-2">
-                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="brand" onChange={handleBrandSelect}>
-                    <option>{productInfo.brand ? productInfo.brand.name : "-- Select Brand --"}</option>
+                <select className="block border border-grey-light w-full p-3 rounded mb-4" name="brand" onChange={handleBrandSelect} value={productInfo.brand._id}>
                     {brands.length > 0 && brands.map((brand) => (
                         <option key={brand._id} value={brand._id}>{brand.name}</option>
                     ))}
