@@ -2,9 +2,8 @@ import React, {useState, useEffect} from 'react';
 import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
-import {listProducts} from '../../../apiFunctions/product';
+import {listProducts, deleteProduct} from '../../../apiFunctions/product';
 import ProductCard from '../../../components/cards/ProductCard';
-import {deleteProduct} from '../../../apiFunctions/product';
 
 const Products = () => {
     const [loading, setLoading] = useState(false);
@@ -20,7 +19,7 @@ const Products = () => {
 
     const getProducts = () => {
         setLoading(true);
-        listProducts(50)
+        listProducts(50, rState.user.token)
             .then(res => {
                 setProducts(res.data);
                 console.log(products);

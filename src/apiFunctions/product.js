@@ -8,8 +8,12 @@ export const createProduct = async (product, authenticationtoken) => {
     });
 };
 
-export const listProducts = async (amount) => {
-    return await axios.get(`${process.env.REACT_APP_API_URL}/products/${amount}`)
+export const listProducts = async (amount, authenticationtoken) => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}/allproducts/${amount}`, {
+        headers: {
+            authenticationtoken: authenticationtoken
+        }
+    });
 };
 
 export const deleteProduct = async (slug, authenticationtoken) => {
@@ -19,3 +23,7 @@ export const deleteProduct = async (slug, authenticationtoken) => {
         }
     });
 }
+
+export const individualProduct = async (slug) => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}/product/${slug}`)
+};
