@@ -41,10 +41,10 @@ const UpdateProductForm = ({
                 required
             />
             <label className="font-semibold text-xl">Images</label>
-            <span className="font-semibold text-xl text-red-700">Click to Delete Image</span>
             <div id="imageDisplay" className="flex space-x-1 mt-2" onClick={handleImageDelete}>
 
             </div>
+            <span className="font-semibold text-md text-red-700">Warning: If you click on an image, it will be permanently deleted.</span>
             <input 
                 type="file"
                 multiple
@@ -116,12 +116,7 @@ const UpdateProductForm = ({
                     <div key={subCategory._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex space-x-1 items-center">
                         <input
                             type="checkbox" 
-                            defaultChecked={subCategory._id == productInfo.subCategories.map(sCategory => {
-                                console.log("sCategory", subCategory._id);
-                                console.log("SCategoryID", sCategory);
-                                console.log("isTrue", subCategory._id == sCategory);
-                                return sCategory;
-                            })}
+                            defaultChecked={productInfo.subCategories.includes(subCategory._id)}
                             onChange={handleSubCategoryCheck}
                             name="subCategories"
                             className="inline-block w-4 h-4 align-middle" 
@@ -148,9 +143,7 @@ const UpdateProductForm = ({
                             <div key={subsidiaryBrand._id} className="p-2 rounded-full hover:bg-gray-200 bg-gray-100 border-2 flex space-x-1 items-center">
                                 <input 
                                     type="checkbox"
-                                    defaultChecked={subsidiaryBrand._id == productInfo.subsidiaryBrands.map(sBrand => {
-                                        return sBrand;
-                                    })}
+                                    defaultChecked={productInfo.subsidiaryBrands.includes(subsidiaryBrand._id)}
                                     onChange={handleSubsidiaryBrandCheck} 
                                     name="subsidiaryBrands"
                                     className="inline-block w-4 h-4 align-middle" 

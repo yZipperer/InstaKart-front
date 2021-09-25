@@ -212,47 +212,46 @@ const UpdateProduct = ({match, history}) => {
     };
 
     const handleImageDelete = (event) => {
-        let url = event.target.src;
-        productInfo.images.filter((item) => {
-            if(item.url === url){
-                let public_id = item.public_id;
-                console.log("remove image", item.public_id);
+        if (window.confirm("Would you like to PERMANENTLY delete this image?")) {
+            let url = event.target.src;
+            productInfo.images.filter((item) => {
+                if(item.url === url){
+                    let public_id = item.public_id;
 
-                setLoading(true);
-        
-                axios
-                  .post(
-                    `${process.env.REACT_APP_API_URL}/remove`,
-                    { public_id },
-                    {
-                        headers: {
-                            authenticationtoken: rState.user.token
+                    setLoading(true);
+            
+                    axios
+                    .post(
+                        `${process.env.REACT_APP_API_URL}/remove`,
+                        { public_id },
+                        {
+                            headers: {
+                                authenticationtoken: rState.user.token
+                            }
                         }
-                    }
-                  )
-                  .then((res) => {
-                    setLoading(false);
-                    let filteredImages = productInfo.images.filter((item) => {
-                      return item.public_id !== public_id;
+                    )
+                    .then((res) => {
+                        setLoading(false);
+                        let filteredImages = productInfo.images.filter((item) => {
+                        return item.public_id !== public_id;
+                        });
+                        setProductInfo({ ...productInfo, images: filteredImages });
+                        displayImages(newImageData.concat(filteredImages));
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        setLoading(false);
                     });
-                    setProductInfo({ ...productInfo, images: filteredImages });
-                    displayImages(newImageData.concat(filteredImages));
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    setLoading(false);
-                  });
-            } else {
-                let filteredImages = newImageData.filter((item) => {
-                    return item !== url;
-                });
-                setNewImageData(filteredImages);
-                displayImages(newImageData.concat(productInfo.images));
-            }
-        });
-
-       
-      };
+                } else {
+                    let filteredImages = newImageData.filter((item) => {
+                        return item !== url;
+                    });
+                    setNewImageData(filteredImages);
+                    displayImages(newImageData.concat(productInfo.images));
+                }
+            });
+        }        
+    };
 
     const loadingProductForm = () => (
         <form>
@@ -279,8 +278,6 @@ const UpdateProduct = ({match, history}) => {
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                            {JSON.stringify(productInfo)}
-                            {JSON.stringify(newImageData)}
 
                             {loading ? (
                                 loadingProductForm()
