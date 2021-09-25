@@ -62,15 +62,18 @@ const CreateProduct = ({history}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
         
         await handleImageUpload();
 
         await createProduct(productInfo, rState.user.token)
         .then(res => {
+            setLoading(false);
             toast.success(`Product "${res.data.name}" has been created`);
             history.push("/admin/products");
         })
         .catch(err => {
+            setLoading(false);
             toast.error(err.response.data.err);
         });
     };

@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import Resizer from 'react-image-file-resizer';
 import axios from 'axios';
-import {individualProductUpdate} from '../../../apiFunctions/product';
+import {individualProductUpdate, updateProduct} from '../../../apiFunctions/product';
 import {listCategories, individualCategorySubCategories} from '../../../apiFunctions/category';
 import {listBrands, individualBrandSubsidiaryBrand} from '../../../apiFunctions/brand';
 import UpdateProductForm from '../../../components/forms/UpdateProductForm';
@@ -34,7 +34,7 @@ const productState = {
     seasonal: "All"
 }
 
-const UpdateProduct = ({match}) => {
+const UpdateProduct = ({match, history}) => {
     const [productInfo, setProductInfo] = useState(productState);
     const [loading, setLoading] = useState(false);
     const [showSubCategorySelect, setShowSubCategorySelect] = useState(true);
@@ -43,7 +43,8 @@ const UpdateProduct = ({match}) => {
     const [subCategories, setSubCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [subsidiaryBrands, setSubsidiaryBrands] = useState([]);
-    const [imageData, setImageData] = useState([]);
+    const [newImageData, setNewImageData] = useState([]);
+    const [imagesToDelete, setImagesToDelete] = useState([]);
 
     const rState = useSelector((state) => ({...state}));
 
@@ -69,6 +70,7 @@ const UpdateProduct = ({match}) => {
             setProductInfo({...productInfo, ...product.data});
             getSubCategories(product.data.category);
             getSubsidiaryBrands(product.data.brand);
+            displayImages(product.data.images);
         });
     };
 
@@ -90,7 +92,20 @@ const UpdateProduct = ({match}) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
 
+        await handleImageUpload();
+
+        await updateProduct(productInfo.slug, productInfo, rState.user.token)
+        .then(res => {
+            setLoading(false);
+            toast.success(`Product "${res.data.name}" has been updated`);
+            history.push("/admin/products");
+        })
+        .catch(err => {
+            setLoading(false);
+            toast.error(err.response.data.err);
+        });        
     };
 
     const handleChange = (event) => {
@@ -137,22 +152,22 @@ const UpdateProduct = ({match}) => {
 
     const handleResize = (event) => {
         let files = event.target.files;
-        setImageData([]);
+        setNewImageData([]);
 
         if(files) {
             for (let i = 0; i < files.length; i++){
                 Resizer.imageFileResizer(files[i], 720, 720, "JPEG", 100, 0, (url) => {
-                    let imgData = imageData;
+                    let imgData = newImageData;
                     imgData.push(url);
-                    setImageData(imgData);
-                    displayImages();
+                    setNewImageData(imgData);
+                    displayImages(newImageData.concat(productInfo.images));
                 }, "base64");
             }
             
         }
     };
 
-    const displayImages = () => {
+    const displayImages = (images) => {
         const imageDisplay = document.getElementById("imageDisplay");
 
         if (imageDisplay.hasChildNodes()) {
@@ -163,9 +178,9 @@ const UpdateProduct = ({match}) => {
             }
         }
 
-        for (let i = 0; i < imageData.length; i++){
+        for (let i = 0; i < images.length; i++){
             let content = document.createElement("img");
-            content.src = imageData[i];
+            content.src = images[i].url || images[i];
             content.setAttribute("class", "w-16 h-12");
             imageDisplay.appendChild(content);
         }
@@ -174,10 +189,10 @@ const UpdateProduct = ({match}) => {
     const handleImageUpload = async () => {
         let uploads = productInfo.images;
 
-        if(imageData.length > 0) {
+        if(newImageData.length > 0) {
             setLoading(true);
-            for (let i = 0; i < imageData.length; i++){
-                await axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: imageData[i]}, {
+            for (let i = 0; i < newImageData.length; i++){
+                await axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: newImageData[i]}, {
                     headers: {
                         authenticationtoken: rState.user.token
                     }
@@ -195,6 +210,49 @@ const UpdateProduct = ({match}) => {
         }
         
     };
+
+    const handleImageDelete = (event) => {
+        let url = event.target.src;
+        productInfo.images.filter((item) => {
+            if(item.url === url){
+                let public_id = item.public_id;
+                console.log("remove image", item.public_id);
+
+                setLoading(true);
+        
+                axios
+                  .post(
+                    `${process.env.REACT_APP_API_URL}/remove`,
+                    { public_id },
+                    {
+                        headers: {
+                            authenticationtoken: rState.user.token
+                        }
+                    }
+                  )
+                  .then((res) => {
+                    setLoading(false);
+                    let filteredImages = productInfo.images.filter((item) => {
+                      return item.public_id !== public_id;
+                    });
+                    setProductInfo({ ...productInfo, images: filteredImages });
+                    displayImages(newImageData.concat(filteredImages));
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    setLoading(false);
+                  });
+            } else {
+                let filteredImages = newImageData.filter((item) => {
+                    return item !== url;
+                });
+                setNewImageData(filteredImages);
+                displayImages(newImageData.concat(productInfo.images));
+            }
+        });
+
+       
+      };
 
     const loadingProductForm = () => (
         <form>
@@ -222,6 +280,7 @@ const UpdateProduct = ({match}) => {
                     <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-4 mb-4 max-w-2xl">
                         <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                             {JSON.stringify(productInfo)}
+                            {JSON.stringify(newImageData)}
 
                             {loading ? (
                                 loadingProductForm()
@@ -234,6 +293,7 @@ const UpdateProduct = ({match}) => {
                                     handleBrandSelect={handleBrandSelect}
                                     handleSubsidiaryBrandCheck={handleSubsidiaryBrandCheck}
                                     handleResize={handleResize}
+                                    handleImageDelete={handleImageDelete}
                                     categories={categories}
                                     subCategories= {subCategories}
                                     showSubCategorySelect={showSubCategorySelect}

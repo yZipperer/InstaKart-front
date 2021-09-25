@@ -22,7 +22,7 @@ export const deleteProduct = async (slug, authenticationtoken) => {
             authenticationtoken: authenticationtoken
         }
     });
-}
+};
 
 export const individualProduct = async (slug) => {
     return await axios.get(`${process.env.REACT_APP_API_URL}/product/${slug}`)
@@ -34,4 +34,12 @@ export const individualProductUpdate = async (slug, authenticationtoken) => {
             authenticationtoken: authenticationtoken
         }
     });
-}
+};
+
+export const updateProduct = async (slug, product, authenticationtoken) => {
+    return await axios.put(`${process.env.REACT_APP_API_URL}/product/${slug}`, product, {
+        headers: {
+            authenticationtoken: authenticationtoken
+        }
+    });
+};

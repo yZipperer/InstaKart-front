@@ -8,6 +8,7 @@ const UpdateProductForm = ({
     handleSubCategoryCheck,
     handleSubsidiaryBrandCheck,
     handleResize,
+    handleImageDelete,
     productInfo,
     categories,
     subCategories,
@@ -40,7 +41,8 @@ const UpdateProductForm = ({
                 required
             />
             <label className="font-semibold text-xl">Images</label>
-            <div id="imageDisplay" className="flex space-x-1 mt-2">
+            <span className="font-semibold text-xl text-red-700">Click to Delete Image</span>
+            <div id="imageDisplay" className="flex space-x-1 mt-2" onClick={handleImageDelete}>
 
             </div>
             <input 
@@ -51,7 +53,6 @@ const UpdateProductForm = ({
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
                 placeholder="Product Description"
                 onChange={handleResize}
-                required
             />
             <label className="font-semibold text-xl">Price</label>
             <div className="flex mt-2">
@@ -116,6 +117,9 @@ const UpdateProductForm = ({
                         <input
                             type="checkbox" 
                             defaultChecked={subCategory._id == productInfo.subCategories.map(sCategory => {
+                                console.log("sCategory", subCategory._id);
+                                console.log("SCategoryID", sCategory);
+                                console.log("isTrue", subCategory._id == sCategory);
                                 return sCategory;
                             })}
                             onChange={handleSubCategoryCheck}
@@ -272,7 +276,7 @@ const UpdateProductForm = ({
         <button
             type="submit"
             className="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-blue-400 focus:outline-none my-2"
-        >Create Product</button>
+        >Update Product</button>
     </form>
     );
 };
