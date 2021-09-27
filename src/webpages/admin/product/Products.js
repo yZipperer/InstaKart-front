@@ -3,7 +3,7 @@ import AdminSideNav from '../../../components/menu/AdminSideNav';
 import {toast} from 'react-toastify';
 import {useSelector} from 'react-redux';
 import {listProducts, deleteProduct} from '../../../apiFunctions/product';
-import ProductCard from '../../../components/cards/ProductCard';
+import ProductCard from '../../../components/cards/ProductCardAdmin';
 
 const Products = () => {
     const [loading, setLoading] = useState(false);
