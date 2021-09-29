@@ -11,11 +11,31 @@ Pages:
 - sign up page
 - sign in page
 
+Admin Pages:
+- Main Dashboard
+- List of all products (active and inactive products)
+
 Features:
 - sign up
 - sign out
 - log in with email and password
 - log in with Google
 - email confirmation
+  Admin Features:
+  - create products
+    - title
+    - description
+    - multiple images
+    - price
+    - price per unit
+    - inventory
+    - suggested inventory
+    - L W H dimensions
+    - weight
+    - taxable
+    - active/non active
+    - available for shipping or pickup
+  - update products
+  - delete products
 - ...much more
 ```
