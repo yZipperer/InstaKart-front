@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Winter = () => {
+const WinterText = () => {
     return (
         <div className="flex bg-gray-100 py-12 justify-center rounded-lg mt-2 mb-4">
             <div className="p-12 text-center max-w-2xl">
@@ -22,4 +22,4 @@ const Winter = () => {
     );
 };
 
-export default Winter;
+export default WinterText;

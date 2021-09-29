@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { listProductsActive } from '../apiFunctions/product';
 import ProductCardUser from '../components/cards/ProductCardUser';
 import ProductCardLoading from '../components/cards/ProductCardLoading';
-import Winter from '../components/heroes/Winter';
+import WinterImage from '../components/heroes/WinterImage';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -32,12 +32,12 @@ const App = () => {
     <div style={{height: "94.1vh"}} class="bg-gray-300 h-screen overflow-auto">
       {loading ? (
         <div className="container mx-auto items-center justify-center px-2 mb-4 w-full">
-          <Winter />
+          <WinterImage />
           {loadingCards(12)}
         </div>
       ) : (
         <div className="container mx-auto items-center justify-center px-2 mb-4 w-full">
-          <Winter />
+          <WinterImage />
           <div className="flex-1 flex flex-wrap">
             {products && products.map(product => (
               <ProductCardUser
