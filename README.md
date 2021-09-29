@@ -14,7 +14,11 @@ Pages:
 Admin Pages:
 - Main Dashboard
 - List of all products (active and inactive products)
+```
 
+## Features
+
+```
 Features:
 - sign up
 - sign out
