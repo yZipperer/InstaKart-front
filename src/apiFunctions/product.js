@@ -18,8 +18,8 @@ export const listProducts = async (amount, authenticationtoken) => {
 };
 
 //user and admin
-export const listProductsActive = async (amount) => {
-    return await axios.get(`${process.env.REACT_APP_API_URL}/products/${amount}`)
+export const listProductsActive = async (amount, target, order) => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}/products/${amount}/${target}/${order}`)
 }
 
 export const deleteProduct = async (slug, authenticationtoken) => {

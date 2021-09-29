@@ -14,7 +14,7 @@ const App = () => {
 
   const loadProducts = () => {
     setLoading(true);
-    listProductsActive(20)
+    listProductsActive(20, "updatedAt", "desc")
     .then(res => {
       setLoading(false);
       setProducts(res.data);
