@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import { listProductsActive } from '../apiFunctions/product';
+
+//components
 import ProductCardUser from '../components/cards/ProductCardUser';
 import ProductCardLoading from '../components/cards/ProductCardLoading';
 import WinterImage from '../components/heroes/WinterImage';
+import NewArrivalsHeading from '../components/headings/NewArrivalsHeading';
+import BasicHeading from '../components/headings/BasicHeading';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -48,7 +52,7 @@ const App = () => {
       ) : (
         <div className="container mx-auto items-center justify-center px-2 mb-4 w-full">
           <WinterImage />
-          <h1>New Arrivals</h1>
+          <NewArrivalsHeading />
           <div className="flex-1 flex flex-wrap">
             {newArrivals && newArrivals.map(product => (
               <ProductCardUser
@@ -57,6 +61,7 @@ const App = () => {
               />
             ))}
           </div>
+          <BasicHeading />
           <div className="flex-1 flex flex-wrap">
             {products && products.map(product => (
               <ProductCardUser
