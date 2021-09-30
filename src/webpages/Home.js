@@ -6,10 +6,12 @@ import WinterImage from '../components/heroes/WinterImage';
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [newArrivals, setNewArrivals] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect (() => {
     loadProducts();
+    loadNewArrivals();
   }, []);
 
   const loadProducts = () => {
@@ -18,7 +20,15 @@ const App = () => {
     .then(res => {
       setLoading(false);
       setProducts(res.data);
-      console.log("p", res.data, products);
+    });
+  };
+
+  const loadNewArrivals = () => {
+    setLoading(true);
+    listProductsActive(8, "createddAt", "desc")
+    .then(res => {
+      setLoading(false);
+      setNewArrivals(res.data);
     });
   };
 
@@ -38,6 +48,15 @@ const App = () => {
       ) : (
         <div className="container mx-auto items-center justify-center px-2 mb-4 w-full">
           <WinterImage />
+          <h1>New Arrivals</h1>
+          <div className="flex-1 flex flex-wrap">
+            {newArrivals && newArrivals.map(product => (
+              <ProductCardUser
+                product={product}
+                key={product._id}
+              />
+            ))}
+          </div>
           <div className="flex-1 flex flex-wrap">
             {products && products.map(product => (
               <ProductCardUser

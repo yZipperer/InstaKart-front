@@ -41,5 +41,5 @@ Features:
     - available for shipping or pickup
   - update products
   - delete products
-- ...much more
+...much more
 ```
