@@ -190,7 +190,6 @@ const UpdateProduct = ({match, history}) => {
         let uploads = productInfo.images;
 
         if(newImageData.length > 0) {
-            setLoading(true);
             for (let i = 0; i < newImageData.length; i++){
                 await axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: newImageData[i]}, {
                     headers: {
@@ -198,12 +197,10 @@ const UpdateProduct = ({match, history}) => {
                     }
                 })
                 .then(res => {
-                    setLoading(false);
                     uploads.push(res.data);
                     setProductInfo({...productInfo, images: uploads});
                 })
                 .catch(err => {
-                    setLoading(false);
                     console.log(err);
                 });
             }

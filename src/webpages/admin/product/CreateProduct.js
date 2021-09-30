@@ -160,7 +160,6 @@ const CreateProduct = ({history}) => {
         let uploads = productInfo.images;
 
         if(imageData.length > 0) {
-            setLoading(true);
             for (let i = 0; i < imageData.length; i++){
                 await axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: imageData[i]}, {
                     headers: {
@@ -168,12 +167,10 @@ const CreateProduct = ({history}) => {
                     }
                 })
                 .then(res => {
-                    setLoading(false);
                     uploads.push(res.data);
                     setProductInfo({...productInfo, images: uploads});
                 })
                 .catch(err => {
-                    setLoading(false);
                     console.log(err);
                 });
             }
