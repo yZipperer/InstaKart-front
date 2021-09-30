@@ -23,13 +23,14 @@ const App = () => {
     listProductsActive(20, "updatedAt", "desc")
     .then(res => {
       setLoading(false);
+      res.data = res.data.sort(() => Math.random() - 0.5);
       setProducts(res.data);
     });
   };
 
   const loadNewArrivals = () => {
     setLoading(true);
-    listProductsActive(8, "createddAt", "desc")
+    listProductsActive(8, "createdAt", "desc")
     .then(res => {
       setLoading(false);
       setNewArrivals(res.data);
