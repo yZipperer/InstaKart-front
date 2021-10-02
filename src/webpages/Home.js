@@ -11,11 +11,13 @@ import BasicHeading from '../components/headings/BasicHeading';
 const App = () => {
   const [products, setProducts] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
+  const [bestSellers, setBestSellers] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect (() => {
     loadProducts();
     loadNewArrivals();
+    loadBestSellers();
   }, []);
 
   const loadProducts = () => {
@@ -36,6 +38,15 @@ const App = () => {
       setNewArrivals(res.data);
     });
   };
+
+  const loadBestSellers = () => {
+    setLoading(true);
+    listProductsActive(8, "sold", "desc")
+    .then(res => {
+      setLoading(false);
+      setBestSellers(res.data);
+    });
+  }
 
   const loadingCards = (amount) => {
     for(let i = 0; i < amount; i++) {
@@ -62,7 +73,16 @@ const App = () => {
               />
             ))}
           </div>
-          <BasicHeading />
+          <BasicHeading text={"Best Sellers"} />
+          <div className="flex-1 flex flex-wrap">
+            {products && products.map(product => (
+              <ProductCardUser
+                product={product}
+                key={product._id}
+              />
+            ))}
+          </div>
+          <BasicHeading text={"Everyday Finds"} />
           <div className="flex-1 flex flex-wrap">
             {products && products.map(product => (
               <ProductCardUser
