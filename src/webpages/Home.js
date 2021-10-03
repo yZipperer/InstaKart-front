@@ -75,7 +75,7 @@ const App = () => {
           </div>
           <BasicHeading text={"Best Sellers"} />
           <div className="flex-1 flex flex-wrap">
-            {products && products.map(product => (
+            {bestSellers && bestSellers.map(product => (
               <ProductCardUser
                 product={product}
                 key={product._id}

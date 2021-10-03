@@ -23,7 +23,7 @@ export const listProductsActive = async (amount, target, order) => {
 }
 
 export const deleteProduct = async (slug, authenticationtoken) => {
-    return await axios.delete(`${process.env.REACT_APP_API_URL}/product/${slug}`, {
+    await axios.delete(`${process.env.REACT_APP_API_URL}/product/${slug}`, {
         headers: {
             authenticationtoken: authenticationtoken
         }

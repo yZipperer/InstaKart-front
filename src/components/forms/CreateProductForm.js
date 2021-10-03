@@ -7,6 +7,7 @@ const CreateProductForm = ({
     handleBrandSelect,
     handleSubCategoryCheck,
     handleSubsidiaryBrandCheck,
+    handleMainResize,
     handleResize,
     productInfo,
     categories,
@@ -39,6 +40,15 @@ const CreateProductForm = ({
                 value={productInfo.description}
                 required
             />
+            <label className="font-semibold text-xl">Main Image</label>
+            <input 
+                type="file"
+                accept="images/*"
+                name="mainImage"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                onChange={handleMainResize}
+                required
+            />
             <label className="font-semibold text-xl">Images</label>
             <div id="imageDisplay" className="flex space-x-1 mt-2">
 
@@ -49,9 +59,7 @@ const CreateProductForm = ({
                 accept="images/*"
                 name="images"
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
-                placeholder="Product Description"
                 onChange={handleResize}
-                required
             />
             <label className="font-semibold text-xl">Price</label>
             <div className="flex mt-2">
@@ -223,6 +231,16 @@ const CreateProductForm = ({
         </div>
         <label className="font-semibold text-xl">Other</label>
         <div className="flex mt-2 flex-wrap">
+        <label className="text-lg w-full">Shelf Life (Days)</label>
+            <input 
+                type="number"
+                name="shelfLife"
+                className="block border border-grey-light w-full p-3 rounded mb-4"
+                placeholder="Shelf Life (Days)"
+                onChange={handleChange}
+                value={productInfo.shelfLife}
+                required
+            />
             <label className="text-lg">Set Product as Active</label>
             <select 
                 name="active"

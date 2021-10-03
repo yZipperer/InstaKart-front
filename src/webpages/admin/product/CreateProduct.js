@@ -12,6 +12,7 @@ import CreateProductForm from '../../../components/forms/CreateProductForm';
 const productState = {
     name: "",
     description: "",
+    mainImage: [],
     images: [],
     price: "",
     pricePerUnit: "",
@@ -25,6 +26,7 @@ const productState = {
     dimensionLength: null,
     dimensionWidth: null,
     dimensionHeight: null,
+    shelfLife: null,
     weight: "",
     origin: "United States",
     active: true,
@@ -42,6 +44,7 @@ const CreateProduct = ({history}) => {
     const [brands, setBrands] = useState([]);
     const [subsidiaryBrands, setSubsidiaryBrands] = useState([]);
     const [imageData, setImageData] = useState([]);
+    const [mainImageData, setMainImageData] = useState("");
 
     const rState = useSelector((state) => ({...state}));
 
@@ -137,6 +140,19 @@ const CreateProduct = ({history}) => {
         }
     };
 
+    const handleMainResize = (event) => {
+        let files = event.target.files;
+
+        if(files) {
+            for (let i = 0; i < files.length; i++){
+                Resizer.imageFileResizer(files[i], 720, 720, "JPEG", 100, 0, (url) => {
+                    setMainImageData(url);
+                }, "base64");
+            }
+            
+        }
+    };
+
     const displayImages = () => {
         const imageDisplay = document.getElementById("imageDisplay");
 
@@ -158,6 +174,7 @@ const CreateProduct = ({history}) => {
 
     const handleImageUpload = async () => {
         let uploads = productInfo.images;
+        let mainImageInfo = productInfo.mainImage;
 
         if(imageData.length > 0) {
             for (let i = 0; i < imageData.length; i++){
@@ -168,15 +185,33 @@ const CreateProduct = ({history}) => {
                 })
                 .then(res => {
                     uploads.push(res.data);
-                    setProductInfo({...productInfo, images: uploads});
                 })
                 .catch(err => {
                     console.log(err);
                 });
             }
         }
+
+        if(mainImageData) {
+            await axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: mainImageData}, {
+                headers: {
+                    authenticationtoken: rState.user.token
+                }
+            })
+            .then(res => {
+                mainImageInfo.push(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+
+        setProductInfo({...productInfo, images: uploads, mainImage: mainImageInfo});
+        console.log("mi", productInfo.mainImage);
         
     };
+
+   
 
     const loadingProductForm = () => (
         <form>
@@ -214,6 +249,7 @@ const CreateProduct = ({history}) => {
                                     handleBrandSelect={handleBrandSelect}
                                     handleSubsidiaryBrandCheck={handleSubsidiaryBrandCheck}
                                     handleResize={handleResize}
+                                    handleMainResize={handleMainResize}
                                     categories={categories}
                                     subCategories= {subCategories}
                                     showSubCategorySelect={showSubCategorySelect}
