@@ -14,6 +14,7 @@ import UpdateProductForm from '../../../components/forms/UpdateProductForm';
 const productState = {
     name: "",
     description: "",
+    mainImage: [],
     images: [],
     price: "",
     pricePerUnit: "",
@@ -45,6 +46,8 @@ const UpdateProduct = ({match, history}) => {
     const [subsidiaryBrands, setSubsidiaryBrands] = useState([]);
     const [newImageData, setNewImageData] = useState([]);
     const [imagesToDelete, setImagesToDelete] = useState([]);
+    const [mainImageData, setMainImageData] = useState("");
+    const [newMainImageData, setNewMainImageData] = useState("");
 
     const rState = useSelector((state) => ({...state}));
 
@@ -71,6 +74,7 @@ const UpdateProduct = ({match, history}) => {
             getSubCategories(product.data.category);
             getSubsidiaryBrands(product.data.brand);
             displayImages(product.data.images);
+            displayMainImages(product.data.mainImage);
         });
     };
 
@@ -167,6 +171,19 @@ const UpdateProduct = ({match, history}) => {
         }
     };
 
+    const handleMainResize = (event) => {
+        let files = event.target.files;
+
+        if(files) {
+            for (let i = 0; i < files.length; i++){
+                Resizer.imageFileResizer(files[i], 720, 720, "JPEG", 100, 0, (url) => {
+                    setMainImageData(url);
+                }, "base64");
+            }
+            
+        }
+    };
+
     const displayImages = (images) => {
         const imageDisplay = document.getElementById("imageDisplay");
 
@@ -186,8 +203,28 @@ const UpdateProduct = ({match, history}) => {
         }
     };
 
+    const displayMainImages = (images) => {
+        const imageDisplay = document.getElementById("mainImageDisplay");
+
+        if (imageDisplay.hasChildNodes()) {
+            var child = imageDisplay.lastElementChild; 
+            while (child) {
+                imageDisplay.removeChild(child);
+                child = imageDisplay.lastElementChild;
+            }
+        }
+
+        for (let i = 0; i < images.length; i++){
+            let content = document.createElement("img");
+            content.src = images[i].url || images[i];
+            content.setAttribute("class", "w-16 h-12");
+            imageDisplay.appendChild(content);
+        }
+    };
+
     const handleImageUpload = async () => {
         let uploads = productInfo.images;
+        let mainImageInfo = productInfo.mainImage;
 
         if(newImageData.length > 0) {
             for (let i = 0; i < newImageData.length; i++){
@@ -198,13 +235,28 @@ const UpdateProduct = ({match, history}) => {
                 })
                 .then(res => {
                     uploads.push(res.data);
-                    setProductInfo({...productInfo, images: uploads});
                 })
                 .catch(err => {
                     console.log(err);
                 });
             }
         }
+
+        if(mainImageData) {
+            await axios.post(`${process.env.REACT_APP_API_URL}/upload`, {image: mainImageData}, {
+                headers: {
+                    authenticationtoken: rState.user.token
+                }
+            })
+            .then(res => {
+                mainImageInfo.push(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+
+        setProductInfo({...productInfo, images: uploads, mainImage: mainImageInfo});
         
     };
 
@@ -250,6 +302,48 @@ const UpdateProduct = ({match, history}) => {
         }        
     };
 
+    const handleMainImageDelete = (event) => {
+        if (window.confirm("Would you like to PERMANENTLY delete this image?")) {
+            let url = event.target.src;
+            productInfo.mainImage.filter((item) => {
+                if(item.url === url){
+                    let public_id = item.public_id;
+
+                    setLoading(true);
+            
+                    axios
+                    .post(
+                        `${process.env.REACT_APP_API_URL}/remove`,
+                        { public_id },
+                        {
+                            headers: {
+                                authenticationtoken: rState.user.token
+                            }
+                        }
+                    )
+                    .then((res) => {
+                        setLoading(false);
+                        let filteredImages = productInfo.mainImage.filter((item) => {
+                        return item.public_id !== public_id;
+                        });
+                        setProductInfo({ ...productInfo, mainImage: filteredImages });
+                        displayMainImages(newMainImageData.concat(filteredImages));
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        setLoading(false);
+                    });
+                } else {
+                    let filteredImages = newMainImageData.filter((item) => {
+                        return item !== url;
+                    });
+                    setNewMainImageData(filteredImages);
+                    displayMainImages(newMainImageData.concat(productInfo.mainImage));
+                }
+            });
+        }        
+    };
+
     const loadingProductForm = () => (
         <form>
             <input 
@@ -286,7 +380,9 @@ const UpdateProduct = ({match, history}) => {
                                     handleSubCategoryCheck={handleSubCategoryCheck}
                                     handleBrandSelect={handleBrandSelect}
                                     handleSubsidiaryBrandCheck={handleSubsidiaryBrandCheck}
+                                    handleMainResize={handleMainResize}
                                     handleResize={handleResize}
+                                    handleMainImageDelete={handleMainImageDelete}
                                     handleImageDelete={handleImageDelete}
                                     categories={categories}
                                     subCategories= {subCategories}

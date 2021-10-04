@@ -231,7 +231,7 @@ const CreateProductForm = ({
         </div>
         <label className="font-semibold text-xl">Other</label>
         <div className="flex mt-2 flex-wrap">
-        <label className="text-lg w-full">Shelf Life (Days)</label>
+            <label className="text-lg w-full">Shelf Life (Days)</label>
             <input 
                 type="number"
                 name="shelfLife"
