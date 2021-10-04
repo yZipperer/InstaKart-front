@@ -5,18 +5,20 @@ import {Link} from 'react-router-dom';
 const ProductCardUser = ({product}) => {
     const {
         name,
+        mainImage,
         images,
         price,
         slug
     } = product
 
     const imageUrl = images && images.length ? images[0].url : noImage;
+    const mainImageUrl = mainImage && mainImage.length ? mainImage[0].url : noImage;
     return (
         <div style={{"max-width": "360px", "min-width": "360px"}} className="bg-white rounded-lg shadow-md text-black w-full m-2">
             <Link to={`/product/${slug}`}>
                 <div class="flex items-center justify-center flex-wrap">
                     <div 
-                        style={{backgroundImage: `url(${imageUrl})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat", "max-height": "360px", "min-height": "360px"}}
+                        style={{backgroundImage: `url(${mainImageUrl})`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat", "max-height": "360px", "min-height": "360px"}}
                         className="h-full w-full rounded-lg"
                     >
                         <span className="float-right border-gray-500 border-2 hover:border-gray-700 hover:border-4 flex items-center flex-wrap rounded-full m-2  text-lg">
