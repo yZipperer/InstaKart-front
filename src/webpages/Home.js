@@ -5,24 +5,22 @@ import { listProductsActive } from '../apiFunctions/product';
 import ProductCardUser from '../components/cards/ProductCardUser';
 import ProductCardLoading from '../components/cards/ProductCardLoading';
 import WinterImage from '../components/heroes/WinterImage';
-import NewArrivalsHeading from '../components/headings/NewArrivalsHeading';
 import BasicHeading from '../components/headings/BasicHeading';
+import NewArrivals from '../components/sections/NewArrivals';
 
 const App = () => {
   const [products, setProducts] = useState([]);
-  const [newArrivals, setNewArrivals] = useState([]);
   const [bestSellers, setBestSellers] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect (() => {
     loadProducts();
-    loadNewArrivals();
     loadBestSellers();
   }, []);
 
   const loadProducts = () => {
     setLoading(true);
-    listProductsActive(20, "updatedAt", "desc")
+    listProductsActive("updatedAt", "desc", 1, 4)
     .then(res => {
       setLoading(false);
       res.data = res.data.sort(() => Math.random() - 0.5);
@@ -30,18 +28,9 @@ const App = () => {
     });
   };
 
-  const loadNewArrivals = () => {
-    setLoading(true);
-    listProductsActive(8, "createdAt", "desc")
-    .then(res => {
-      setLoading(false);
-      setNewArrivals(res.data);
-    });
-  };
-
   const loadBestSellers = () => {
     setLoading(true);
-    listProductsActive(8, "sold", "desc")
+    listProductsActive("sold", "desc", 1, 4)
     .then(res => {
       setLoading(false);
       setBestSellers(res.data);
@@ -64,15 +53,9 @@ const App = () => {
       ) : (
         <div className="container mx-auto items-center justify-center px-2 mb-4 w-full">
           <WinterImage />
-          <NewArrivalsHeading />
-          <div className="flex-1 flex flex-wrap">
-            {newArrivals && newArrivals.map(product => (
-              <ProductCardUser
-                product={product}
-                key={product._id}
-              />
-            ))}
-          </div>
+          
+          <NewArrivals />
+
           <BasicHeading text={"Best Sellers"} />
           <div className="flex-1 flex flex-wrap">
             {bestSellers && bestSellers.map(product => (

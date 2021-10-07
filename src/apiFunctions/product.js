@@ -18,8 +18,8 @@ export const listProducts = async (amount, authenticationtoken) => {
 };
 
 //user and admin
-export const listProductsActive = async (amount, target, order) => {
-    return await axios.get(`${process.env.REACT_APP_API_URL}/products/${amount}/${target}/${order}`)
+export const listProductsActive = async (target, order, pageNum, resultsPerPage) => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}/products/${target}/${order}?pageNum=${pageNum}&?resPerPage=${resultsPerPage}`);
 }
 
 export const deleteProduct = async (slug, authenticationtoken) => {
@@ -49,3 +49,7 @@ export const updateProduct = async (slug, product, authenticationtoken) => {
         }
     });
 };
+
+export const getProductNum = async () => {
+    return await axios.get(`${process.env.REACT_APP_API_URL}/products/num`);
+}
