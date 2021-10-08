@@ -6,7 +6,7 @@ import {auth} from './firebase';
 import {currentUser} from './apiFunctions/authentication';
 import {useDispatch} from 'react-redux';
 
-// Components
+// Pages
 import Home from './webpages/Home';
 import Signup from './webpages/authentication/Signup';
 import SignupSuccess from './webpages/authentication/SignupSuccess';
@@ -31,6 +31,7 @@ import UpdateSubsidiaryBrand from './webpages/admin/subsidiaryBrand.js/UpdateSub
 import CreateProduct from './webpages/admin/product/CreateProduct';
 import Products from './webpages/admin/product/Products';
 import UpdateProduct from './webpages/admin/product/UpdateProduct';
+import NewArrivals from './webpages/NewArrivals';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ const App = () => {
       <ToastContainer />
       <Switch>
         <Route exact path="/" component={Home}></Route>
+        <Route exact path="/newarrivals" component={NewArrivals}></Route>
         <Route exact path="/signup" component={Signup}></Route>
         <Route exact path="/signup/success" component={SignupSuccess}></Route>
         <Route exact path="/login" component={Login}></Route>

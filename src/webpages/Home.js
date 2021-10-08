@@ -6,7 +6,8 @@ import ProductCardUser from '../components/cards/ProductCardUser';
 import ProductCardLoading from '../components/cards/ProductCardLoading';
 import WinterImage from '../components/heroes/WinterImage';
 import BasicHeading from '../components/headings/BasicHeading';
-import NewArrivals from '../components/sections/NewArrivals';
+import NewArrivalsSection from '../components/sections/NewArrivalsSection';
+import MainProductsSection from '../components/sections/MainProductsSection';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -54,7 +55,7 @@ const App = () => {
         <div className="container mx-auto items-center justify-center px-2 mb-4 w-full">
           <WinterImage />
           
-          <NewArrivals />
+          <NewArrivalsSection />
 
           <BasicHeading text={"Best Sellers"} />
           <div className="flex-1 flex flex-wrap">
@@ -65,15 +66,8 @@ const App = () => {
               />
             ))}
           </div>
-          <BasicHeading text={"Everyday Finds"} />
-          <div className="flex-1 flex flex-wrap">
-            {products && products.map(product => (
-              <ProductCardUser
-                product={product}
-                key={product._id}
-              />
-            ))}
-          </div>
+
+          <MainProductsSection />
         </div>
       )}
     </div>
