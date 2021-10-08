@@ -8,35 +8,10 @@ import WinterImage from '../components/heroes/WinterImage';
 import BasicHeading from '../components/headings/BasicHeading';
 import NewArrivalsSection from '../components/sections/NewArrivalsSection';
 import MainProductsSection from '../components/sections/MainProductsSection';
+import BestSellersSection from '../components/sections/BestSellersSection';
 
 const App = () => {
-  const [products, setProducts] = useState([]);
-  const [bestSellers, setBestSellers] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  useEffect (() => {
-    loadProducts();
-    loadBestSellers();
-  }, []);
-
-  const loadProducts = () => {
-    setLoading(true);
-    listProductsActive("updatedAt", "desc", 1, 4)
-    .then(res => {
-      setLoading(false);
-      res.data = res.data.sort(() => Math.random() - 0.5);
-      setProducts(res.data);
-    });
-  };
-
-  const loadBestSellers = () => {
-    setLoading(true);
-    listProductsActive("sold", "desc", 1, 4)
-    .then(res => {
-      setLoading(false);
-      setBestSellers(res.data);
-    });
-  }
 
   const loadingCards = (amount) => {
     for(let i = 0; i < amount; i++) {
@@ -57,15 +32,7 @@ const App = () => {
           
           <NewArrivalsSection />
 
-          <BasicHeading text={"Best Sellers"} />
-          <div className="flex-1 flex flex-wrap">
-            {bestSellers && bestSellers.map(product => (
-              <ProductCardUser
-                product={product}
-                key={product._id}
-              />
-            ))}
-          </div>
+          <BestSellersSection />
 
           <MainProductsSection />
         </div>

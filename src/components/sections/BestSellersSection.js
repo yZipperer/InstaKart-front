@@ -2,29 +2,30 @@ import React, {useEffect, useState} from 'react';
 import {listProductsActive} from '../../apiFunctions/product';
 import NewArrivalsHeading from '../headings/NewArrivalsHeading';
 import ProductCardUser from '../cards/ProductCardUser';
+import BestSellersHeading from '../headings/BestSellersHeading';
 
-const NewArrivalsSection = () => {
-    const [newArrivals, setNewArrivals] = useState([]);
+const BestSellersSection = () => {
+    const [bestSellers, setBestSellers] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect (() => {
-        loadNewArrivals();
+        loadBestSellers();
     }, []);
 
-    const loadNewArrivals = () => {
+    const loadBestSellers = () => {
         setLoading(true);
-        listProductsActive("createdAt", "desc", 1, 4)
+        listProductsActive("sold", "desc", 1, 4)
         .then(res => {
-            setLoading(false);
-            setNewArrivals(res.data);
+          setLoading(false);
+          setBestSellers(res.data);
         });
     };
 
     return (
         <>
-            <NewArrivalsHeading />
+            <BestSellersHeading />
             <div className="flex-1 flex flex-wrap">
-                {newArrivals && newArrivals.map(product => (
+                {bestSellers && bestSellers.map(product => (
                 <ProductCardUser
                     product={product}
                     key={product._id}
@@ -35,4 +36,4 @@ const NewArrivalsSection = () => {
     )
 };
 
-export default NewArrivalsSection;
+export default BestSellersSection;

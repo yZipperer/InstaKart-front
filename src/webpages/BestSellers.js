@@ -4,20 +4,20 @@ import BasicHeading from '../components/headings/BasicHeading';
 import ProductCardUser from '../components/cards/ProductCardUser';
 import ProductCardLoading from '../components/cards/ProductCardLoading';
 
-const NewArrivals = () => {
-    const [newArrivals, setNewArrivals] = useState([]);
+const BestSellers = () => {
+    const [bestSellers, setBestSellers] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect (() => {
-        loadNewArrivals();
+        loadBestSellers();
     }, []);
 
-    const loadNewArrivals = () => {
+    const loadBestSellers = () => {
         setLoading(true);
-        listProductsActive("createdAt", "desc", 1, 20)
+        listProductsActive("sold", "desc", 1, 20)
         .then(res => {
-            setLoading(false);
-            setNewArrivals(res.data);
+          setLoading(false);
+          setBestSellers(res.data);
         });
     };
 
@@ -36,10 +36,10 @@ const NewArrivals = () => {
         ) : (
           <div className="container mx-auto items-center justify-center px-2 mb-4 w-full">
               <BasicHeading
-                text={"New Arrivals"}
+                text={"Best Sellers"}
               />
               <div className="flex-1 flex flex-wrap">
-                  {newArrivals && newArrivals.map(product => (
+                  {bestSellers && bestSellers.map(product => (
                   <ProductCardUser
                       product={product}
                       key={product._id}
@@ -52,4 +52,4 @@ const NewArrivals = () => {
     )
 };
 
-export default NewArrivals;
+export default BestSellers;

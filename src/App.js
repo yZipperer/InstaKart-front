@@ -32,6 +32,7 @@ import CreateProduct from './webpages/admin/product/CreateProduct';
 import Products from './webpages/admin/product/Products';
 import UpdateProduct from './webpages/admin/product/UpdateProduct';
 import NewArrivals from './webpages/NewArrivals';
+import BestSellers from './webpages/BestSellers';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Home}></Route>
         <Route exact path="/newarrivals" component={NewArrivals}></Route>
+        <Route exact path="/bestsellers" component={BestSellers}></Route>
         <Route exact path="/signup" component={Signup}></Route>
         <Route exact path="/signup/success" component={SignupSuccess}></Route>
         <Route exact path="/login" component={Login}></Route>
