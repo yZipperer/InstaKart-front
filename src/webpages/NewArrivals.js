@@ -8,7 +8,7 @@ const NewArrivals = () => {
     const [newArrivals, setNewArrivals] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect (() => {
+    useEffect(() => {
         loadNewArrivals();
     }, []);
 

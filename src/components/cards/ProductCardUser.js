@@ -9,7 +9,7 @@ const ProductCardUser = ({product}) => {
         images,
         price,
         slug
-    } = product
+    } = product;
 
     const imageUrl = images && images.length ? images[0].url : noImage;
     const mainImageUrl = mainImage && mainImage.length ? mainImage[0].url : noImage;

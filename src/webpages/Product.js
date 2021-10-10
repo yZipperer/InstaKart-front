@@ -1,23 +1,34 @@
 import React, {useEffect, useState} from 'react';
 import {individualProduct} from '../apiFunctions/product';
+import ProductCardLarge from '../components/cards/ProductCardLarge';
 
 const Product = ({match}) => {
     const [product, setProduct] = useState({});
-    const {slug} = match.params;
+    const [loading, setLoading] = useState(true);
 
-    useEffect (() => {
+    useEffect(() => {
         loadProduct();
-    }, [slug]);
+    }, []);
 
-    const loadProduct = () => {
-        individualProduct(slug).then(res => {
+    const loadProduct = async () => {
+        setLoading(true);
+        await individualProduct(match.params.slug)
+        .then(res => {
+            console.log("data", res.data);
             setProduct(res.data);
+            setLoading(false);
         });
     };
 
     return (
-        <div style={{height: "94.1vh"}} class="bg-gray-300 h-screen">
-
+        <div class="bg-gray-300 pb-16 pt-12">
+            {loading ? (
+                <>Loading/...</>
+            ) : (
+                <ProductCardLarge
+                    product={product}
+                />
+            )}
         </div>
     )
 };

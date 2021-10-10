@@ -51,6 +51,7 @@ const CreateProduct = ({history}) => {
     useEffect(() => {
         getCategories();
         getBrands();
+        setProductInfo({...productInfo, images: [], mainImage: []})
     }, []);
     
     const getCategories = () => {

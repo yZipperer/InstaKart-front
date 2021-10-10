@@ -8,7 +8,7 @@ const BestSellers = () => {
     const [bestSellers, setBestSellers] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect (() => {
+    useEffect(() => {
         loadBestSellers();
     }, []);
 
