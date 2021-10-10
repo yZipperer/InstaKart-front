@@ -32,13 +32,16 @@ const Products = () => {
     };
 
     const handleDeletion = (slug) => {
+        setLoading(true);
         if(window.confirm("Are you sure you want to delete this product?")) {
             deleteProduct(slug, rState.user.token)
             .then(res => {
+                setLoading(false);
                 getProducts();
                 toast.success(`Product "${res.data.name}" has been Deleted`);
             })
             .catch(err => {
+                setLoading(false);
                 console.log(err);
             })
         }
@@ -49,13 +52,21 @@ const Products = () => {
             <AdminSideNav></AdminSideNav>
             <div style={{height: "93.445vh"}} className="bg-gray-300 w-full overflow-auto">
                     <div className="container mx-auto flex-1 flex items-center justify-center px-2 mt-4 mb-4 flex-wrap w-full">
-                        {products && products.map(product => (
-                            <ProductCard
-                                product={product}
-                                key={product._id}
-                                handleDeletion={handleDeletion}
-                            />
-                        ))}
+                        {loading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            products ? (
+                                <p>No Products</p>
+                            ) : (
+                                products && products.map(product => (
+                                    <ProductCard
+                                        product={product}
+                                        key={product._id}
+                                        handleDeletion={handleDeletion}
+                                    />
+                                ))
+                            )
+                        )}
 
                     </div>
             </div>
