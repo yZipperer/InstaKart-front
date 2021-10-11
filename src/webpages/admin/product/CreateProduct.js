@@ -29,9 +29,23 @@ const productState = {
     shelfLife: null,
     weight: "",
     origin: "United States",
+    temperature: "Average",
     active: true,
     taxable: true,
-    seasonal: "All"
+    seasonal: "All",
+    ingredients: "",
+    nutrition: {
+        servingsPerContainer: null,
+        servingSize: "",
+        caloriesPerServing: null,
+        totalFatPerServing: null,
+        cholestrolPerServing: null,
+        sodiumPerServing: null,
+        totalCarbohydratesPerServing: null,
+        dietaryFiberPerServing: null,
+        totalSugarsPerServing: null,
+        proteinPerServing: null,
+    }
 }
 
 const CreateProduct = ({history}) => {
@@ -84,6 +98,14 @@ const CreateProduct = ({history}) => {
 
     const handleChange = (event) => {
         setProductInfo({...productInfo, [event.target.name]: event.target.value});
+    };
+
+    const handleNutritionChange = (event) => {
+        let tempProductInfo = productInfo;
+        let name = event.target.name;
+        tempProductInfo.nutrition[name] = event.target.value
+
+        setProductInfo(tempProductInfo);
     };
 
     const handleCategorySelect = (event) => {
@@ -245,6 +267,7 @@ const CreateProduct = ({history}) => {
                                 <CreateProductForm
                                     handleSubmit={handleSubmit}
                                     handleChange={handleChange}
+                                    handleNutritionChange={handleNutritionChange}
                                     handleCategorySelect={handleCategorySelect}
                                     handleSubCategoryCheck={handleSubCategoryCheck}
                                     handleBrandSelect={handleBrandSelect}

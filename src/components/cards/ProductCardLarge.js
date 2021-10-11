@@ -71,12 +71,11 @@ const ProductCardLarge = ({product}) => {
                     <div>
                     <ul className="flex flex-wrap mb-16 border-b-2">
                         <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 bg-white text-gray-500 font-bold font-heading shadow-2xl" href="#">Description</a></li>
-                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" href="#">Customer reviews</a></li>
-                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" href="#">Shipping returns</a></li>
-                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" href="#">Brand</a></li>
+                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" href="#">Reviews</a></li>
+                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" href="#">Nutrition and Ingredients</a></li>
                     </ul>
-                    <h3 className="mb-8 text-3xl font-bold font-heading text-blue-300">Summer collection and laoreet get</h3>
-                    <p className="max-w-2xl text-gray-500">I had interdum at ante porta, eleifend feugiat nunc. In semper euismod mi a accums lorem sad. Morbi at auctor nibh. Aliquam tincidunt placerat mollis. Lorem euismod dignissim, felis tortor ollis eros, non ultricies turpis.</p>
+                    <h3 className="mb-8 text-3xl font-bold font-heading text-blue-300">Description</h3>
+                    <p className="max-w-2xl text-gray-500">{product.description}</p>
                 </div>
             </div>
         </section>
