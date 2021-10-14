@@ -1,6 +1,22 @@
 import React from 'react';
     
 const ProductCardLarge = ({product}) => {
+    const handleTabChange = (target) => {
+        document.getElementById("desc").hidden = true;
+        document.getElementById("descB").classList = "inline-block py-6 px-10 text-gray-500 font-bold font-heading";
+        document.getElementById("revi").hidden = true;
+        document.getElementById("reviB").classList = "inline-block py-6 px-10 text-gray-500 font-bold font-heading";
+        document.getElementById("nutr").hidden = true;
+        document.getElementById("nutrB").classList = "inline-block py-6 px-10 text-gray-500 font-bold font-heading";
+        document.getElementById("ingr").hidden = true;
+        document.getElementById("ingrB").classList = "inline-block py-6 px-10 text-gray-500 font-bold font-heading";
+
+        const tab = document.getElementById(target);
+        const tabB = document.getElementById(target+"B");
+        tabB.classList = "inline-block py-6 px-10 bg-white text-gray-500 font-bold font-heading shadow-2xl";
+        tab.hidden = !tab.hidden;
+    }
+
     return (
         <section className="pt-24 pb-16 bg-white w-3/4 mx-auto">
             <div className="container mx-auto px-4">
@@ -70,12 +86,27 @@ const ProductCardLarge = ({product}) => {
                     </div>
                     <div>
                     <ul className="flex flex-wrap mb-16 border-b-2">
-                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 bg-white text-gray-500 font-bold font-heading shadow-2xl" href="#">Description</a></li>
-                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" href="#">Reviews</a></li>
-                        <li className="w-1/2 md:w-auto"><a className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" href="#">Nutrition and Ingredients</a></li>
+                        <li className="w-1/2 md:w-auto cursor-pointer"><a onClick={() => handleTabChange("desc")} className="inline-block py-6 px-10 bg-white text-gray-500 font-bold font-heading shadow-2xl" id="descB">Description</a></li>
+                        <li className="w-1/2 md:w-auto cursor-pointer"><a onClick={() => handleTabChange("revi")} className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" id="reviB">Reviews</a></li>
+                        <li className="w-1/2 md:w-auto cursor-pointer"><a onClick={() => handleTabChange("nutr")} className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" id="nutrB">Nutrition</a></li>
+                        <li className="w-1/2 md:w-auto cursor-pointer"><a onClick={() => handleTabChange("ingr")} className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" id="ingrB">Ingredients</a></li>
                     </ul>
-                    <h3 className="mb-8 text-3xl font-bold font-heading text-blue-300">Description</h3>
-                    <p className="max-w-2xl text-gray-500">{product.description}</p>
+                    <div id="desc">
+                        <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Description</h3>
+                        <p className="max-w-2xl text-gray-500">{product.description}</p>
+                    </div>
+                    <div id="revi" hidden>
+                        <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Reviews</h3>
+                        <p className="max-w-2xl text-gray-500">Reviews will go here</p>
+                    </div>
+                    <div id="nutr" hidden>
+                        <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Nutrition Facts</h3>
+                        <p className="max-w-2xl text-gray-500">nutrition will go here</p>
+                    </div>
+                    <div id="ingr" hidden>
+                        <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Ingredients</h3>
+                        <p className="max-w-2xl text-gray-500">{product.ingredients}</p>
+                    </div>
                 </div>
             </div>
         </section>

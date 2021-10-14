@@ -313,7 +313,7 @@ const UpdateProductForm = ({
                 type="number"
                 name="sodiumPerServing"
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
-                placeholder="Sodium Per Serving"
+                placeholder="Sodium Per Serving (in milligrams)"
                 onChange={handleNutritionChange}
                 value={productInfo.nutrition.sodiumPerServing}
         />
@@ -322,7 +322,7 @@ const UpdateProductForm = ({
                 type="number"
                 name="totalCarbohydratesPerServing"
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
-                placeholder="Carbohydrates Per Serving"
+                placeholder="Carbohydrates Per Serving (in grams)"
                 onChange={handleNutritionChange}
                 value={productInfo.nutrition.totalCarbohydratesPerServing}
         />
@@ -331,7 +331,7 @@ const UpdateProductForm = ({
                 type="number"
                 name="dietaryFiberPerServing"
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
-                placeholder="Fiber Per Serving"
+                placeholder="Fiber Per Serving (in grams)"
                 onChange={handleNutritionChange}
                 value={productInfo.nutrition.dietaryFiberPerServing}
         />
@@ -340,7 +340,7 @@ const UpdateProductForm = ({
                 type="number"
                 name="totalSugarsPerServing"
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
-                placeholder="Sugars Per Serving"
+                placeholder="Sugars Per Serving (in grams)"
                 onChange={handleNutritionChange}
                 value={productInfo.nutrition.totalSugarsPerServing}
         />
@@ -349,7 +349,7 @@ const UpdateProductForm = ({
                 type="number"
                 name="proteinPerServing"
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
-                placeholder="Protein Per Serving"
+                placeholder="Protein Per Serving (in grams)"
                 onChange={handleNutritionChange}
                 value={productInfo.nutrition.proteinPerServing}
         />
