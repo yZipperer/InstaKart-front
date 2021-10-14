@@ -248,7 +248,7 @@ const CreateProductForm = ({
                 className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
                 placeholder="Ingredients"
                 onChange={handleChange}
-                value={productInfo.servingSize}
+                value={productInfo.ingredients}
         />
         <hr className="border-black border-1 border-solid" />
         <label className="text-lg w-full">Servings Per Container</label>

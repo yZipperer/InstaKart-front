@@ -56,8 +56,6 @@ const Products = () => {
                             <p>Loading...</p>
                         ) : (
                             products ? (
-                                <p>No Products</p>
-                            ) : (
                                 products && products.map(product => (
                                     <ProductCard
                                         product={product}
@@ -65,6 +63,8 @@ const Products = () => {
                                         handleDeletion={handleDeletion}
                                     />
                                 ))
+                            ) : (
+                                <p>No Products</p>
                             )
                         )}
 

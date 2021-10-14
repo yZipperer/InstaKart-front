@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 const UpdateProductForm = ({
     handleSubmit,
     handleChange,
+    handleNutritionChange,
     handleCategorySelect,
     handleBrandSelect,
     handleSubCategoryCheck,
@@ -198,6 +199,17 @@ const UpdateProductForm = ({
                     <option value="China">China</option>
                     <option value="United Kingdom">United Kingdom</option>
                 </select>
+                <label className="text-lg w-full mt-2">Temperature</label>
+                <select 
+                    name="temperature"
+                    className="block border border-grey-light w-full p-3 rounded mb-4 mt-1"
+                    onChange={handleChange}
+                    required
+                >
+                    <option value="Average">Average/Room Temperature</option>
+                    <option value="Cold">Cold/Refridgerated</option>
+                    <option value="Frozen">Frozen</option>
+                </select>
                 <label className="text-lg w-full">Dimensions in Inches (Length x Width x Height)</label>
                 <div className="flex mt-2">
                     <input 
@@ -239,6 +251,108 @@ const UpdateProductForm = ({
                 required
             />
         </div>
+        <label className="font-semibold text-xl w-full">Nutrition and Ingredients</label>
+        <input 
+                type="text"
+                name="ingredients"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Ingredients"
+                onChange={handleChange}
+                value={productInfo.ingredients}
+        />
+        <hr className="border-black border-1 border-solid" />
+        <label className="text-lg w-full">Servings Per Container</label>
+        <input 
+                type="number"
+                name="servingsPerContainer"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Servings Per Container"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.servingsPerContainer}
+        />
+        <label className="text-lg w-full">Serving Size</label>
+        <input 
+                type="text"
+                name="servingSize"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Serving Size (2 cups)"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.servingSize}
+        />
+        <hr className="border-black border-1 border-solid" />
+        <label className="text-lg w-full">Calories Per Serving</label>
+        <input 
+                type="number"
+                name="caloriesPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Calories Per Serving"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.caloriesPerServing}
+        />
+        <hr className="border-black border-1 border-solid" />
+        <label className="text-lg w-full">Total Fat Per Serving</label>
+        <input 
+                type="number"
+                name="totalFatPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Fat Per Serving (in grams)"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.totalFatPerServing}
+        />
+        <label className="text-lg w-full">Cholestrol Per Serving</label>
+        <input 
+                type="number"
+                name="cholestrolPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Cholestrol Per Serving (in milligrams)"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.cholestrolPerServing}
+        />
+        <label className="text-lg w-full">Sodium Per Serving</label>
+        <input 
+                type="number"
+                name="sodiumPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Sodium Per Serving"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.sodiumPerServing}
+        />
+        <label className="text-lg w-full">Total Carboyhdrates Per Serving</label>
+        <input 
+                type="number"
+                name="totalCarbohydratesPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Carbohydrates Per Serving"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.totalCarbohydratesPerServing}
+        />
+        <label className="text-lg w-full">Dietary Fiber Per Serving</label>
+        <input 
+                type="number"
+                name="dietaryFiberPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Fiber Per Serving"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.dietaryFiberPerServing}
+        />
+        <label className="text-lg w-full">Sugars Per Serving</label>
+        <input 
+                type="number"
+                name="totalSugarsPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Sugars Per Serving"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.totalSugarsPerServing}
+        />
+        <label className="text-lg w-full">Protein Per Serving</label>
+        <input 
+                type="number"
+                name="proteinPerServing"
+                className="block border border-grey-light w-full p-3 mt-2 rounded mb-4"
+                placeholder="Protein Per Serving"
+                onChange={handleNutritionChange}
+                value={productInfo.nutrition.proteinPerServing}
+        />
         <label className="font-semibold text-xl">Other</label>
         <div className="flex mt-2 flex-wrap">
             <label className="text-lg w-full">Shelf Life (Days)</label>
