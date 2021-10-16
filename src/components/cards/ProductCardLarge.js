@@ -187,8 +187,77 @@ const ProductCardLarge = ({product}) => {
                         <p className="max-w-2xl text-gray-500">Reviews will go here</p>
                     </div>
                     <div id="nutr" hidden>
-                        <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Nutrition Facts</h3>
-                        <p className="max-w-2xl text-gray-500">nutrition will go here</p>
+                        <table class="rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 text-gray-800 bg-white overflow-auto">
+                            <tr class="bg-white">
+                                <td class="px-4 py-1 w-full">
+                                    <p class="w-full py-3 text-2xl text-bold">Nutrition Facts</p>
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-t-2 border-gray-800">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full">{product.nutrition.servingsPerContainer} servings per container</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-4 border-gray-800">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full text-semibold">Serving size: {product.nutrition.servingSize}</p>
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full">Amount per Serving</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-4 border-gray-800">
+                                <td class="px-4 w-full">
+                                    <p class="text-2xl w-full text-bold">Calories: {product.nutrition.caloriesPerServing}</p>
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b-2 border-gray-400">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full text-semibold">Total Fat: {product.nutrition.totalFatPerServing}g</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-2 border-gray-400">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full text-semibold">Cholestrol: {product.nutrition.cholestrolPerServing}mg</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-2 border-gray-400">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full text-semibold">Sodium: {product.nutrition.sodiumPerServing}mg</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-2 border-gray-400">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full text-semibold">Total Carbohydrates: {product.nutrition.totalCarbohydratesPerServing}g</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-2 border-gray-400">
+                                <td class="px-4 w-full">
+                                    <p class="ml-8 text-lg w-full">Dietary Fiber: {product.nutrition.dietaryFiberPerServing}g</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-2 border-gray-400">
+                                <td class="px-4 w-full">
+                                    <p class="ml-8 text-lg w-full">Total Sugar: {product.nutrition.totalSugarsPerServing}g</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-4 border-gray-800">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full text-semibold">Protein: {product.nutrition.proteinPerServing}g</p>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b-4 border-gray-800">
+                                <td class="px-4 w-full">
+                                    <p class="text-lg w-full text-semibold">{product.ingredients}</p>
+                                </td>
+                            </tr>
+                        
+                        </table>
                     </div>
                     <div id="ingr" hidden>
                         <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Ingredients</h3>
