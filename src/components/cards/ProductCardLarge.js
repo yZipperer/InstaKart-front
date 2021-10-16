@@ -117,68 +117,61 @@ const ProductCardLarge = ({product}) => {
                         <hr />
                         <table class="rounded-lg w-full md:w-1/2 text-gray-800 bg-white overflow-auto">
                             <tr class="bg-white border-b border-gray-200">
-                                <td class="px-4 py-1">
+                                <td class="px-4 py-1 flex">
                                     <p class="text-center w-full py-3">Categories:</p>
-                                </td>
-                                <td class="px-4 py-1 text-blue-500">
-                                    <Link to={`/category/${product.category.slug}`}>
+                                
+                                    <Link to={`/category/${product.category.slug}`} className="text-blue-500 text-center w-full py-3">
                                         {product.category.name}
                                     </Link>
-                                </td>
-                                
-                                {product.subCategories.map((sCat) => {
-                                    return (
-                                        <td class="px-4 py-1 text-blue-500">
-                                            <Link to={`/subcategory/${sCat.slug}`}>
+                                    
+                                    {product.subCategories.map((sCat) => {
+                                        return (
+                                            <Link to={`/subcategory/${sCat.slug}`} className="text-blue-500 text-center w-full py-3">
                                                 {sCat.name}
                                             </Link>
-                                        </td>
-                                    )
-                                })}
+                                        )
+                                    })}
+                                </td>
                             </tr>
 
                             <tr class="bg-white border-b border-gray-200">
-                                <td class="px-4 py-1">
+                                <td class="px-4 py-1 flex">
                                     <p class="text-center w-full py-3">Brands:</p>
-                                </td>
-                                <td class="px-4 py-1 text-blue-500">
-                                    <Link to={`/brand/${product.brand.slug}`}>
+                                
+                                    <Link to={`/brand/${product.brand.slug}`} className="text-blue-500 text-center w-full py-3">
                                         {product.brand.name}
                                     </Link>
-                                </td>
                                 
-                                {product.subsidiaryBrands.map((sBrand) => {
-                                    return (
-                                        <td class="px-4 py-1 text-blue-500">
-                                            <Link to={`/subsidiarybrands/${sBrand.slug}`}>
+                                    {product.subsidiaryBrands.map((sBrand) => {
+                                        return (
+                                            <Link to={`/subsidiarybrands/${sBrand.slug}`} className="text-blue-500 text-center w-full py-3">
                                                 {sBrand.name}
                                             </Link>
-                                        </td>
-                                    )
-                                })}
-                            </tr>
-
-                            <tr class="bg-white border-b border-gray-200">
-                                <td class="px-4 py-1">
-                                    <p class="text-center w-full py-3">Origin:</p>
-                                </td>
-                                <td class="px-4 py-1">
-                                    <p class="text-center w-full py-3">{product.origin}</p>
+                                        )
+                                    })}
                                 </td>
                             </tr>
 
                             <tr class="bg-white border-b border-gray-200">
                                 <td class="px-4 py-1">
-                                    <p class="text-center w-full py-3">Available:</p>
-                                </td>
-                                <td class="px-4 py-1">
-                                    <p class="text-center w-full py-3">{product.quantity}</p>
+                                    <p class="text-center w-full py-3">Origin: {product.origin}</p>
                                 </td>
                             </tr>
-                            
+
+                            <tr class="bg-white border-b border-gray-200">
+                                <td class="px-4 py-1">
+                                    <p class="text-center w-full py-3">Available: {product.quantity}</p>
+                                </td>
+                            </tr>
+
                             {product.shipping === "No" && (
-                                <p class="text-center w-full py-3 text-red-500">*This item can only be picked up in store</p>
+                                <tr class="bg-white border-b border-gray-200">
+                                    <td class="px-4 py-1">
+                                        <p class="text-center w-full py-3 text-red-500">*This item can only be picked up in store</p>
+                                    </td>
+                                </tr>
                             )}
+                            
                         
                         </table>
                     </div>
