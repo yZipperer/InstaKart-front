@@ -21,7 +21,7 @@ const Product = ({match}) => {
     };
 
     return (
-        <div class="bg-gray-300 pb-16 pt-12">
+        <div class="bg-gray-300 pb-8 sm:pb-16 pt-6 sm:pt-12 ">
             {loading ? (
                 <>Loading/...</>
             ) : (

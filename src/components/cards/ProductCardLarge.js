@@ -1,4 +1,8 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+import noImage from '../../images/no-image-found.png';
     
 const ProductCardLarge = ({product}) => {
     const handleTabChange = (target) => {
@@ -17,16 +21,32 @@ const ProductCardLarge = ({product}) => {
         tab.hidden = !tab.hidden;
     }
 
+    const images = product.mainImage.concat(product.images);
+    console.log("images", images);
+
     return (
-        <section className="pt-24 pb-16 bg-white w-3/4 mx-auto">
+        <section className="pt-6 sm:pt-24 pb-16 bg-white w-11/12 lg:w-3/4 mx-auto">
             <div className="container mx-auto px-4">
-                <div className="flex flex-wrap -mx-4 mb-24">
+                <div className="flex flex-wrap -mx-4">
                     <div className="w-full md:w-1/2 px-4 mb-8 md:mb-0">
-                        <div className="relative mb-10" style={{height: "564px"}}>
+                        <div className="relative h-auto">
+                            <Carousel
+                                showArrows={true}
+                                autoPlay={true}
+                                infiniteLoop={true}
+                            >
+                                {images.map((image) => {
+                                    return (
+                                        <img className="object-cover w-full h-full" src={image.url || noImage} alt="" />
+                                    )
+                                })}
+                            </Carousel>
+                        </div>
+                        {/*<div className="relative mb-10" style={{height: "564px"}}>
                             <button className="absolute top-1/2 left-0 ml-8 transform translate-1/2 hover:text-indigo-700">
                                 <i className="fas fa-chevron-left"></i>
                             </button>
-                            <img className="object-cover w-full h-full" src={product.mainImage[0].url} alt="Main Product Image" />
+                            <img className="object-cover w-full h-full" src={product.mainImage[0].url || noImage} alt="Main Product Image" />
                             <button className="absolute top-1/2 right-0 mr-8 transform translate-1/2 hover:text-indigo-700">
                                 <i className="fas fa-chevron-right"></i>
                             </button>
@@ -36,12 +56,12 @@ const ProductCardLarge = ({product}) => {
                                 return (
                                     <div className="w-1/2 sm:w-1/4 p-2">
                                         <a className="block" href="#">
-                                        <img className="w-full h-32 object-cover" src={image.url} alt="" />
+                                        <img className="w-full h-32 object-cover" src={image.url || noImage} alt="" />
                                         </a>
                                     </div>
                                 )
                             })}
-                        </div>
+                        </div>*/}
                     </div>
                     <div className="w-full md:w-1/2 px-4">
                         <div className="lg:pl-20">
@@ -85,7 +105,7 @@ const ProductCardLarge = ({product}) => {
                     </div>
                     </div>
                     <div>
-                    <ul className="flex flex-wrap mb-16 border-b-2">
+                    <ul className="flex flex-wrap mb-8 border-b-2">
                         <li className="w-1/2 md:w-auto cursor-pointer"><a onClick={() => handleTabChange("desc")} className="inline-block py-6 px-10 bg-white text-gray-500 font-bold font-heading shadow-2xl" id="descB">Description</a></li>
                         <li className="w-1/2 md:w-auto cursor-pointer"><a onClick={() => handleTabChange("revi")} className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" id="reviB">Reviews</a></li>
                         <li className="w-1/2 md:w-auto cursor-pointer"><a onClick={() => handleTabChange("nutr")} className="inline-block py-6 px-10 text-gray-500 font-bold font-heading" id="nutrB">Nutrition</a></li>
@@ -93,7 +113,74 @@ const ProductCardLarge = ({product}) => {
                     </ul>
                     <div id="desc">
                         <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Description</h3>
-                        <p className="max-w-2xl text-gray-500">{product.description}</p>
+                        <p className="max-w-2xl text-gray-500 pb-6">{product.description}</p>
+                        <hr />
+                        <table class="rounded-lg w-full md:w-1/2 text-gray-800 bg-white overflow-auto">
+                            <tr class="bg-white border-b border-gray-200">
+                                <td class="px-4 py-1">
+                                    <p class="text-center w-full py-3">Categories:</p>
+                                </td>
+                                <td class="px-4 py-1 text-blue-500">
+                                    <Link to={`/category/${product.category.slug}`}>
+                                        {product.category.name}
+                                    </Link>
+                                </td>
+                                
+                                {product.subCategories.map((sCat) => {
+                                    return (
+                                        <td class="px-4 py-1 text-blue-500">
+                                            <Link to={`/subcategory/${sCat.slug}`}>
+                                                {sCat.name}
+                                            </Link>
+                                        </td>
+                                    )
+                                })}
+                            </tr>
+
+                            <tr class="bg-white border-b border-gray-200">
+                                <td class="px-4 py-1">
+                                    <p class="text-center w-full py-3">Brands:</p>
+                                </td>
+                                <td class="px-4 py-1 text-blue-500">
+                                    <Link to={`/brand/${product.brand.slug}`}>
+                                        {product.brand.name}
+                                    </Link>
+                                </td>
+                                
+                                {product.subsidiaryBrands.map((sBrand) => {
+                                    return (
+                                        <td class="px-4 py-1 text-blue-500">
+                                            <Link to={`/subsidiarybrands/${sBrand.slug}`}>
+                                                {sBrand.name}
+                                            </Link>
+                                        </td>
+                                    )
+                                })}
+                            </tr>
+
+                            <tr class="bg-white border-b border-gray-200">
+                                <td class="px-4 py-1">
+                                    <p class="text-center w-full py-3">Origin:</p>
+                                </td>
+                                <td class="px-4 py-1">
+                                    <p class="text-center w-full py-3">{product.origin}</p>
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b border-gray-200">
+                                <td class="px-4 py-1">
+                                    <p class="text-center w-full py-3">Available:</p>
+                                </td>
+                                <td class="px-4 py-1">
+                                    <p class="text-center w-full py-3">{product.quantity}</p>
+                                </td>
+                            </tr>
+                            
+                            {product.shipping === "No" && (
+                                <p class="text-center w-full py-3 text-red-500">*This item can only be picked up in store</p>
+                            )}
+                        
+                        </table>
                     </div>
                     <div id="revi" hidden>
                         <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Reviews</h3>
