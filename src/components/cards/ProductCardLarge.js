@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import noImage from '../../images/no-image-found.png';
+import StarRatings from 'react-star-ratings';
+import Rating from '../ratings/Rating';
     
 const ProductCardLarge = ({product}) => {
     const handleTabChange = (target) => {
@@ -68,12 +70,15 @@ const ProductCardLarge = ({product}) => {
                         <div class="mb-10 pb-10 border-b">
                             <span className="text-gray-500">{product.brand.name}</span>
                             <h2 className="mt-2 mb-6 max-w-xl text-4xl md:text-4xl font-bold font-heading">{product.name}</h2>
-                            <div className="mb-8 text-yellow-300">
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star-half-alt"></i>
+                            <div className="mb-8">
+                                <StarRatings 
+                                    name={product._id}
+                                    numberOfStars={5}
+                                    rating={2}
+                                    changeRating={(newRating, name) => console.log("rn", newRating, name)}
+                                    isSelectable={true}
+                                    starRatedColor="blue"
+                                />
                             </div>
                             <p className="inline-block mb-8 text-2xl font-bold font-heading text-blue-500">
                             <span>${product.price}</span>
@@ -191,7 +196,9 @@ const ProductCardLarge = ({product}) => {
                     </div>
                     <div id="revi" hidden>
                         <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Reviews</h3>
-                        <p className="max-w-2xl text-gray-500">Reviews will go here</p>
+                        <Rating
+                            product={product}
+                        />
                     </div>
                     <div id="nutr" hidden>
                         <table class="rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 text-gray-800 bg-white overflow-auto">
