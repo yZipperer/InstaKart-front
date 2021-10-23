@@ -1,10 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {individualProduct} from '../apiFunctions/product';
 import ProductCardLarge from '../components/cards/ProductCardLarge';
+import {productRating} from '../apiFunctions/product';
+import {useSelector} from 'react-redux';
 
 const Product = ({match}) => {
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
+    const [stars, setStars] = useState(0);
+    const [reviewText, setReviewText] = useState("");
+
+    let rState = useSelector((rState) => {
+        return rState;
+    });
 
     useEffect(() => {
         loadProduct();
@@ -20,6 +28,10 @@ const Product = ({match}) => {
         });
     };
 
+    const onRate = (rating) => {
+        setStars(rating);
+    };
+
     return (
         <div class="bg-gray-300 pb-8 sm:pb-16 pt-6 sm:pt-12 ">
             {loading ? (
@@ -27,6 +39,11 @@ const Product = ({match}) => {
             ) : (
                 <ProductCardLarge
                     product={product}
+                    onRate={onRate}
+                    stars={stars}
+                    reviewText={reviewText}
+                    setReviewText={setReviewText}
+                    loadProduct={loadProduct}
                 />
             )}
         </div>

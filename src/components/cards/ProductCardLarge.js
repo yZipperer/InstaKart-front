@@ -6,7 +6,7 @@ import noImage from '../../images/no-image-found.png';
 import StarRatings from 'react-star-ratings';
 import Rating from '../ratings/Rating';
     
-const ProductCardLarge = ({product}) => {
+const ProductCardLarge = ({product, onRate, stars, reviewText, setReviewText, loadProduct}) => {
     const handleTabChange = (target) => {
         document.getElementById("desc").hidden = true;
         document.getElementById("descB").classList = "inline-block py-6 px-10 text-gray-500 font-bold font-heading";
@@ -198,6 +198,11 @@ const ProductCardLarge = ({product}) => {
                         <h3 className="mb-8 text-3xl font-bold font-heading text-blue-500">Reviews</h3>
                         <Rating
                             product={product}
+                            onRate={onRate}
+                            stars={stars}
+                            reviewText={reviewText}
+                            setReviewText={setReviewText}
+                            loadProduct={loadProduct}
                         />
                     </div>
                     <div id="nutr" hidden>

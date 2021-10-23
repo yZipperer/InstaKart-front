@@ -53,3 +53,13 @@ export const updateProduct = async (slug, product, authenticationtoken) => {
 export const getProductNum = async () => {
     return await axios.get(`${process.env.REACT_APP_API_URL}/products/num`);
 }
+
+export const productRating = async (pID, stars, text, authenticationtoken) => {
+    return await axios.put(`${process.env.REACT_APP_API_URL}/product/rate/${pID}`, 
+    {stars, text},
+    {
+        headers: {
+            authenticationtoken: authenticationtoken
+        }
+    });
+};
