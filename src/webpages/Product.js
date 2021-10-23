@@ -18,6 +18,16 @@ const Product = ({match}) => {
         loadProduct();
     }, []);
 
+    useEffect(() => {
+        if(product.ratings && rState.user) {
+            let exists = product.ratings.find((e) => {
+                return e.author.toString() === rState.user._id.toString();
+            });
+            exists && setReviewText(exists.text);
+            exists && setStars(exists.stars);
+        }
+    })
+
     const loadProduct = async () => {
         setLoading(true);
         await individualProduct(match.params.slug)
