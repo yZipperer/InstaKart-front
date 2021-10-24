@@ -5,6 +5,7 @@ import { Carousel } from 'react-responsive-carousel';
 import noImage from '../../images/no-image-found.png';
 import StarRatings from 'react-star-ratings';
 import Rating from '../ratings/Rating';
+import AverageRating from '../ratings/AverageRating';
     
 const ProductCardLarge = ({product, onRate, stars, reviewText, setReviewText, loadProduct}) => {
     const handleTabChange = (target) => {
@@ -24,7 +25,6 @@ const ProductCardLarge = ({product, onRate, stars, reviewText, setReviewText, lo
     }
 
     const images = product.mainImage.concat(product.images);
-    console.log("images", images);
 
     return (
         <section className="pt-6 sm:pt-24 pb-16 bg-white w-11/12 lg:w-3/4 mx-auto">
@@ -71,13 +71,8 @@ const ProductCardLarge = ({product, onRate, stars, reviewText, setReviewText, lo
                             <span className="text-gray-500">{product.brand.name}</span>
                             <h2 className="mt-2 mb-6 max-w-xl text-4xl md:text-4xl font-bold font-heading">{product.name}</h2>
                             <div className="mb-8">
-                                <StarRatings 
-                                    name={product._id}
-                                    numberOfStars={5}
-                                    rating={2}
-                                    changeRating={(newRating, name) => console.log("rn", newRating, name)}
-                                    isSelectable={true}
-                                    starRatedColor="blue"
+                                <AverageRating 
+                                    product={product}
                                 />
                             </div>
                             <p className="inline-block mb-8 text-2xl font-bold font-heading text-blue-500">

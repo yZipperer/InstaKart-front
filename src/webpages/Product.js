@@ -38,8 +38,13 @@ const Product = ({match}) => {
         });
     };
 
-    const onRate = (rating) => {
+    const onRate = async (rating) => {
         setStars(rating);
+        await productRating(product._id, rating, reviewText, rState.user.token)
+        .then(res => {
+            console.log("rating", res.data);
+            loadProduct();
+        });
     };
 
     return (
